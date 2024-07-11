@@ -11,7 +11,7 @@ import {links} from '../javascript/links.js'
 
 const LandingPage = () => {
   const [open,setOpen] = useState(false);
-  
+
   return (
     <>
     {/* main container */}
@@ -26,19 +26,29 @@ const LandingPage = () => {
         <RxHamburgerMenu size={25} color="white"
         onClick={() => {
           setOpen(!open);
+          
         }} />
 
         {/* side menu */}
           <div
             className={`${open ? 'opacity-100' : 'hidden opacity-0'}
              h-screen w-[60%] fixed top-0 right-0 transition-all
-              duration-300 ease-in-out bg-white`}
-          ></div>
+              duration-300 ease-in-out bg-black  z-50
+              `}
+          >
+            <ul className='list-none text-white flex flex-col justify-center text-center gap-9 mt-20
+            font-bold '>
+              <li>About</li>
+              <li>Tours</li>
+              <li>Sale</li>
+              <li>Contact</li>
+            </ul>
+          </div>
 
 
         <img style={{
           clipPath: "polygon(0 0, 100% 0, 100% 82%, 84% 100%, 0 61%)"
-        }} className =' cursor-pointer 
+        }} className =' cursor-pointer z-10
                 h-49 w-40 object-cover mt-4' src={headerimg} alt="header image" />
         </div>  
 
