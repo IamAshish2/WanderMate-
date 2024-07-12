@@ -2,7 +2,7 @@ import React from 'react'
 import img  from '../assets/bg8.jpg';
 import {RxHamburgerMenu} from 'react-icons/rx';
 import headerimg from '../assets/headerImg2.jpg';
-import {useState,useEffect } from 'react'
+import {useState } from 'react'
 import {links} from '../javascript/links.js'
 
 
@@ -64,7 +64,8 @@ const LandingPage = () => {
       {/* footer */}
       <div className='  grid  grid-cols-2  '>
         <div>
-          <p className='leading-6 font-bold pl-6 text-xs md:pl-12 pb-6 md:pd-12 text-white '>Visit Nepal, You will never <br/> regret it. <br />  This is something incredible, <br />fantastic, <br />mesmerizing and lifetime <br /> experience.</p>
+          <p className='leading-6 font-bold pl-6 text-xs md:pl-12 pb-6 md:pd-12 text-white '>Visit Nepal, You will never <br/> regret it. <br />  
+          This is something incredible, <br />fantastic, <br />mesmerizing and lifetime <br /> experience.</p>
         </div>
 
         <div className='ml-20'>
@@ -76,7 +77,6 @@ const LandingPage = () => {
                       </a>
                   ))}
                 </li>
-           
             </ul>
         </div>
          

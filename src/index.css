@@ -7,3 +7,23 @@
   margin:0;
   box-sizing: border-box;
 }
+
+/* sign up page styles */
+.signup-input{
+  border: 1px solid #ccc;
+  width:400px;
+  height:40px;
+  outline:none;
+  border-radius: 8px;
+}
+
+
+.signup-input::placeholder{
+  color:lightgray;
+  padding:12px;
+}
+
+.signup-input:focus{
+  border-color: rgb(15, 15, 156);
+  border-width:2px;
+}
