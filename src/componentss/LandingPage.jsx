@@ -89,20 +89,22 @@ const LandingPage = () => {
           </div>
 
           <div className="h-full w-full flex items-end ">
-            <div className=" h-20 w-full items-center text-xl flex justify-around gap-1  right-0 bottom-0">
+            <div className=" h-20 w-full items-center text-xl flex justify-around gap-1 right-0 bottom-0">
               {landingFooterLinks.map((link) => (
                 <li
                   key={link.id}
                   className="text-white font-bold list-none hover:border-b-4 border-yellow-400"
                 >
-                  <a  href={link.link}>{link.title}</a>
+                  <a href={link.link}>{link.title}</a>
                 </li>
               ))}
             </div>
           </div> 
 
         </div>
-      </div>
+       
+
+         </div>
     </>
   );
 };

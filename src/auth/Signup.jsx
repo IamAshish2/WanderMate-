@@ -1,7 +1,27 @@
 import React from 'react'
 import '../index.css'
 import bgimg from '../assets/undraw_signup.svg' 
+import {useForm} from "react-hook-form"
+
+
+
+
 const Signup = () => {
+    // const [formData,setFormData] = useState({
+    //     username:"",
+    //     email:""
+    // });
+
+    // const handleChange =(event) =>{
+    //     const { name,value } = event.target;
+    //     setFormData({
+    //         //spread operator
+    //         ...formData,
+    //         [name]:value
+    //     });
+    //     console.log(formData);
+    // }
+
   return (
     <>
     <div className='h-screen w-full flex justify-center items-center '>
@@ -13,10 +33,27 @@ const Signup = () => {
 
                     <p className='font-bold text-2xl text-blue-700 mb-4 '>Sign Up</p>
                     <form className='flex flex-col gap-4' action="">
-                        <input className='signup-input' type="text" placeholder='Username' />
-                        <input className='signup-input' type="text" placeholder='Email'/>
-                        <input className='signup-input' type="text"placeholder='Password' />
-                        <input className='signup-input' type="text" placeholder='Confirm Password' />
+                        <input className='signup-input' name='username'  type="text" placeholder='Username'
+                            onChange={(event) => {
+                                //calling the handleChange function and passing the event generated
+                                handleChange(event);
+                            }} />
+
+                        <input className='signup-input' name='email' type="text" placeholder='Email'
+                              onChange={(event) => {
+                                //calling the handleChange function and passing the event generated
+                                handleChange(event);
+                            }}/>
+
+                        <input className='signup-input' name='password' type="text"placeholder='Password' 
+                           onChange={(event) =>{
+                                handleChange(event);
+                           }} />
+
+                        <input className='signup-input' name='password' type="text" placeholder='Confirm Password'
+                            onChange={(event) =>{
+                            handleChange(event);
+                         }}  />
                     </form>
 
                     <button className='bg-blue-800 mt-5 p-2 text-white font-bold rounded-md' type='submit'>Sign Up</button>
