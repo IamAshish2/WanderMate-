@@ -1,89 +1,114 @@
-import React from 'react'
-import img  from '../assets/bg8.jpg';
-import {RxHamburgerMenu} from 'react-icons/rx';
-import headerimg from '../assets/headerImg2.jpg';
-import {useState } from 'react'
-import {links} from '../javascript/links.js'
-
-
-
-
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { RxHamburgerMenu } from "react-icons/rx";
+import BGImg from "../assets/bg8.jpg";
+import HeaderImage from "../assets/headerImg5.jpg";
+import {  landingFooterLinks, LandingHeaderLinks, NavLinks } from "../helper-links/Data.js";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
-  const [open,setOpen] = useState(false);
-
+  const [open, setOpen] = useState(false);
   return (
     <>
-    {/* main container */}
-    <div className='  flex flex-col justify-between h-screen w-full'
-    style={{
-      backgroundImage: `linear-gradient(rgba(10,10,10,0.9), rgba(10,10,10,0.5)), url(${img})`,
-      backgroundSize:"cover",
-      backgroundPosition:"center"
-    }}>
-      {/* header container */}
-        <div className=' flex justify-between items-center pl-4 sm:pl-6 md:pl-8  h-[55px] w-full'>   
-        <RxHamburgerMenu size={25} color="white"
-        onClick={() => {
-          setOpen(!open);
-          
-        }} />
+      <div
+        className="h-screen w-full flex flex-col justify-between"
+        style={{
+          background: `linear-gradient(rgba(0, 128, 128, 0.6), rgba(0, 128, 128, 0.6)),url(${BGImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "top",
+        }}
+      >
+        <div className="h-[10vh] w-full pl-4 sm:pl-6 md:pl-8 flex justify-between items-center relative">
+          <RxHamburgerMenu
+            size={30}
+            color="white"
+            className="cursor-pointer block md:hidden"
+            onClick={() => {
+              setOpen(!open);
+            }}
+          />
+          <img
+            style={{
+              clipPath: "polygon(0 0, 100% 0, 100% 90%, 75% 100%, 0 50%)",
+            }}
+            className="h-52 w-40 object-cover absolute right-0"
+            src={HeaderImage}
+            alt="image"
+          />
+          <div className="absolute left-8 top-4 hidden md:block">
+            <h1 className="text-4xl font-bold text-orange-500">Explore.</h1>
+          </div>
+          <div className="flex-1 flex justify-center items-center gap-4">
+            {NavLinks.map((links) => (
+              <Link
+                key={links.id}
+                className="p-4 font-bold text-white hidden md:block text-lg hover:border-b-2 cursor-pointer"
+                to={links.link}
+              >
+                {links.title}
+              </Link>
+            ))}
+          </div>
+        </div>
 
-        {/* side menu */}
-          <div
-            className={`${open ? 'opacity-100' : 'hidden opacity-0'}
-             h-screen w-[60%] fixed top-0 right-0 transition-all
-              duration-300 ease-in-out bg-black  z-50
-              `}
+        <motion.div
+          initial={{ x: open ? 600 : 0 }}
+          animate={{ x: open ? 0 : 600 }}
+          transition={{ duration: 0.3 }}
+          className="h-screen w-[40%] block md:hidden fixed top-0 right-0 bg-zinc-300 z-50 rounded-xl"
+        >
+          {LandingHeaderLinks.map((landingFooterLinks) => (
+            <Link
+              key={landingFooterLinks.id}
+              className="flex p-4 font-bold hover:bg-blue-300 cursor-pointer"
+              to={landingFooterLinks.link}
+            >
+              {landingFooterLinks.title}
+            </Link>
+          ))}
+        </motion.div>
+
+        <div className="w-full text-center text-white">
+          <p className="text-lg font-bold md:text-xl lg:text-2xl bg-gradient-to-b from-gray-400 to-gray-100 text-transparent bg-clip-text">
+            The Country of Himalays
+          </p>
+          <h1
+            className="font-bold text-7xl md:text-8xl lg:text-9xl"
+            style={{ textShadow: "4px 4px 8px rgba(0, 0, 0, 0.4)" }}
           >
-            <ul className='list-none text-white flex flex-col justify-center text-center gap-9 mt-20
-            font-bold '>
-              <li>About</li>
-              <li>Tours</li>
-              <li>Sale</li>
-              <li>Contact</li>
-            </ul>
+            <span className="text-yellow-600">NEP</span>AL
+          </h1>
+        </div>
+
+        <div className="w-full grid grid-cols-2 ">
+          <div className="h-full w-full">
+            <p className="leading-6 pl-6 md:pl-12 pb-6 md:pb-12 text-lg text-white font-semibold">
+              Visit Nepal, You will never regret it. <br /> This is something
+              incredible, fantastic, <br /> mesmerizing and lifetime experience.{" "}
+            </p>
           </div>
 
-
-        <img style={{
-          clipPath: "polygon(0 0, 100% 0, 100% 82%, 84% 100%, 0 61%)"
-        }} className =' cursor-pointer z-10
-                h-49 w-40 object-cover mt-4' src={headerimg} alt="header image" />
-        </div>  
-
-      {/* hero component */}
-        <div className='flex justify-center text-center flex-col  '>
-          <p className='text-white font-bold text-sm tracking-widest'>The country of Himalays</p>
-          <p className='text-7xl font-bold '> 
-              <span className='text-orange-500'>NEP</span>
-              <span className='text-white '>AL</span>
-          </p>
-        </div>
-
-      {/* footer */}
-      <div className='  grid  grid-cols-2  '>
-        <div>
-          <p className='leading-6 font-bold pl-6 text-xs md:pl-12 pb-6 md:pd-12 text-white '>Visit Nepal, You will never <br/> regret it. <br />  
-          This is something incredible, <br />fantastic, <br />mesmerizing and lifetime <br /> experience.</p>
-        </div>
-
-        <div className='ml-20'>
-            <ul className='text-white text-sm  font-bold   '>
-                <li className='flex gap-4 flex-wrap  w-[160px] mt-[89px]'>
-                {links.map((linkItem) => (
-                      <a href={linkItem.link} target="_blank">
-                        {linkItem.name}
-                      </a>
-                  ))}
+          <div className="h-full w-full flex items-end ">
+            <div className=" h-20 w-full items-center text-xl flex justify-around gap-1 right-0 bottom-0">
+              {landingFooterLinks.map((link) => (
+                <li
+                  key={link.id}
+                  className="text-white font-bold list-none hover:border-b-4 border-yellow-400"
+                >
+                  <a href={link.link}>{link.title}</a>
                 </li>
-            </ul>
-        </div>
-         
-      </div>
-    </div>
-    </> 
-  )
-}
+              ))}
+            </div>
+          </div> 
 
-export default LandingPage
+        </div>
+       
+
+         </div>
+    </>
+  );
+};
+
+export default LandingPage;
+
+	

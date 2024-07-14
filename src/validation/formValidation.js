@@ -5,5 +5,5 @@ export const signUpSchema = yup.object().shape({
     email:yup.string().email("Enter a valid email").required("Email cannot be empty"),
     password:yup.string().min(8,"password should be at least 8 characters long").max(50,"Password should not be longer than 50 characters"),
     confirmPassword:yup.string().oneOf([yup.ref("password"),null],"Passwords do not match."),
-    iAgree:yup.bool().oneOf([true],"You must agree to all Terms and Conditions")
+    IAgree:yup.bool().oneOf([true],"You must agree to all Terms and Conditions")
 });

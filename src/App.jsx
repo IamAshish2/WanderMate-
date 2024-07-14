@@ -1,6 +1,6 @@
 import { useState ,useEffect} from 'react'
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
-import LandingPage from "./componentss/LandingPage"
+import LandingPage from "./Components/LandingPage.jsx"
 import SignIn from "./auth/Signin"
 import SignUp from "./auth/Signup"
 function App() {
