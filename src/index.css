@@ -21,9 +21,20 @@
 .signup-input::placeholder{
   color:lightgray;
   padding:12px;
+
 }
 
 .signup-input:focus{
   border-color: rgb(15, 15, 156);
   border-width:2px;
 }
+
+/* .home-search-bar{
+  width:70%;
+} */
+
+/* .home-search-bar::placeholder {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+} */

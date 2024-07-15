@@ -1,15 +1,16 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { RxHamburgerMenu } from "react-icons/rx";
 import BGImg from "../assets/bg8.jpg";
 import HeaderImage from "../assets/headerImg5.jpg";
-import {  landingFooterLinks, LandingHeaderLinks, NavLinks } from "../helper-links/Data.js";
-import { Link } from "react-router-dom";
+import {landingFooterLinks,landingHeaderLinks} from "../helper-links/Data.js"
 
 const LandingPage = () => {
   const [open, setOpen] = useState(false);
   return (
     <>
+      {/* encapsulates all */}
       <div
         className="h-screen w-full flex flex-col justify-between"
         style={{
@@ -18,56 +19,71 @@ const LandingPage = () => {
           backgroundPosition: "top",
         }}
       >
-        <div className="h-[10vh] w-full pl-4 sm:pl-6 md:pl-8 flex justify-between items-center relative">
+        {/* header */}
+        <div className="h-[10vh] w-full pl-4 sm:pl-6 md:pl-8 flex justify-between items-center">
           <RxHamburgerMenu
-            size={30}
+            size={25}
             color="white"
-            className="cursor-pointer block md:hidden"
+            className="cursor-pointer sm:hidden"
             onClick={() => {
               setOpen(!open);
             }}
           />
+          <Link
+            to="/signup"
+            className="sm:flex hidden pl-4 md:pl-8 text-orange-600 font-bold text-2xl lg:text-4xl hover:cursor-pointer"
+            style={{ textShadow: "4px 4px 4px rgba(0, 0, 0, 0.4)" }}
+          >
+            Explore.
+          </Link>
+
+          <div className="hidden sm:flex h-full w-full items-center justify-center gap-9 lg:gap-14">
+            {landingHeaderLinks.slice(0, 4).map((item) => (
+              <>
+                <Link
+                  key={item.id}
+                  to={item.link}
+                  className="text-base text-white md:text-lg lg:text-xl hover:border-b-4 hover:border-b-yellow-500"
+                >
+                  {item.title}
+                </Link>
+              </>
+            ))}
+          </div>
+          
           <img
             style={{
               clipPath: "polygon(0 0, 100% 0, 100% 90%, 75% 100%, 0 50%)",
             }}
-            className="h-52 w-40 object-cover absolute right-0"
+            className="h-36 md:h-52 lg:h-64 w-40 sm:w-52 md:w-64 object-cover"
             src={HeaderImage}
             alt="image"
           />
-          <div className="absolute left-8 top-4 hidden md:block">
-            <h1 className="text-4xl font-bold text-orange-500">Explore.</h1>
-          </div>
-          <div className="flex-1 flex justify-center items-center gap-4">
-            {NavLinks.map((links) => (
-              <Link
-                key={links.id}
-                className="p-4 font-bold text-white hidden md:block text-lg hover:border-b-2 cursor-pointer"
-                to={links.link}
-              >
-                {links.title}
-              </Link>
-            ))}
-          </div>
         </div>
 
+        {/* side menu */}
         <motion.div
           initial={{ x: open ? 600 : 0 }}
           animate={{ x: open ? 0 : 600 }}
-          transition={{ duration: 0.3 }}
-          className="h-screen w-[40%] block md:hidden fixed top-0 right-0 bg-zinc-300 z-50 rounded-xl"
+          transition={{ duration: 0.5 }}
+          className={`
+            h-screen w-[40%] sm:hidden fixed top-0 right-0 bg-white z-50 rounded-lg`}
         >
-          {LandingHeaderLinks.map((landingFooterLinks) => (
-            <Link
-              key={landingFooterLinks.id}
-              className="flex p-4 font-bold hover:bg-blue-300 cursor-pointer"
-              to={landingFooterLinks.link}
-            >
-              {landingFooterLinks.title}
-            </Link>
+          {landingHeaderLinks.map((item) => (
+            <>
+              <Link
+                className="flex justify-around  font-bold text-gray-600 text-lg pl-4 py-3
+                cursor-pointer hover:bg-gray-100 hover:rounded-lg"
+                key={item.id}
+                to={item.link}
+              >
+                {item.title}
+              </Link>
+            </>
           ))}
         </motion.div>
 
+        {/* hero */}
         <div className="w-full text-center text-white">
           <p className="text-lg font-bold md:text-xl lg:text-2xl bg-gradient-to-b from-gray-400 to-gray-100 text-transparent bg-clip-text">
             The Country of Himalays
@@ -79,36 +95,35 @@ const LandingPage = () => {
             <span className="text-yellow-600">NEP</span>AL
           </h1>
         </div>
-
-        <div className="w-full grid grid-cols-2 ">
+        {/* footer */}
+        <div className="w-full grid grid-cols-2">
+          {/* first side */}
           <div className="h-full w-full">
-            <p className="leading-6 pl-6 md:pl-12 pb-6 md:pb-12 text-lg text-white font-semibold">
+            <p className="leading-6 pl-6 md:pl-12 pb-6 md:pb-12 text-white">
               Visit Nepal, You will never regret it. <br /> This is something
               incredible, fantastic, <br /> mesmerizing and lifetime experience.{" "}
             </p>
           </div>
-
-          <div className="h-full w-full flex items-end ">
-            <div className=" h-20 w-full items-center text-xl flex justify-around gap-1 right-0 bottom-0">
+          {/* second side */}
+          <div className="h-full flex items-end justify-end gap-4">
+            <div className="h-16 flex items-center flex-wrap gap-4 md:gap-16 backdrop-blur-sm px-4">
               {landingFooterLinks.map((link) => (
-                <li
-                  key={link.id}
-                  className="text-white font-bold list-none hover:border-b-4 border-yellow-400"
-                >
-                  <a href={link.link}>{link.title}</a>
-                </li>
+                <>
+                  <Link
+                    to={link.link}
+                    key={link.id}
+                    className="list-none text-white cursor-pointer font-normal hover:border-b-4 hover:border-b-yellow-500"
+                  >
+                    {link.title}
+                  </Link>
+                </>
               ))}
             </div>
-          </div> 
-
+          </div>
         </div>
-       
-
-         </div>
+      </div>
     </>
   );
 };
 
 export default LandingPage;
-
-	
