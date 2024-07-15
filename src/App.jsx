@@ -1,4 +1,5 @@
-import { useState ,useEffect} from 'react'
+//outlet from react router dom 
+
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
 import LandingPage from "./Components/LandingPage.jsx"
 import SignIn from "./auth/Signin"
