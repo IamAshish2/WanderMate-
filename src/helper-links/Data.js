@@ -91,11 +91,11 @@ export const headerLinks = [
   },
   { id:3,
     linkTitle: "Travel Packages",
-    link: "/travelpackages",
+    link: "/user/travelpackages",
   },
   { id:4,
     linkTitle: "Hotels",
-    link: "/hotels",
+    link: "/user/hotels",
   },
 ];
 

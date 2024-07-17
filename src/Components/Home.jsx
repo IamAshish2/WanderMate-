@@ -26,7 +26,7 @@ const Home = () => {
         }}
       >
         {/* < Header/> */}
-        <div className="h-[10vh] w-full pl-4 sm:pl-6 md:pl-8 flex justify-between items-center relative">
+        {/* <div className="h-[10vh] w-full pl-4 sm:pl-6 md:pl-8 flex justify-between items-center relative">
           <RxHamburgerMenu
             size={26}
             color="black"
@@ -78,7 +78,7 @@ const Home = () => {
               </Link>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* search bar conatainer */}
         <div
