@@ -1,4 +1,5 @@
 import { travelPackagesPage } from "../helper-links/Data";
+import StarsRating from "./StarsRating";
 
 const TravelPackages = () => {
   return (
@@ -9,7 +10,7 @@ const TravelPackages = () => {
       {travelPackagesPage.map((travelPackage) => (
         <div
           key={travelPackage.id}
-          className="flex h-[75%] justify-center items-center m-4  border border-gray-300 shadow-xl rounded-xl">
+          className="flex h-[75%] justify-center items-center m-4  border border-gray-200 shadow-xl rounded-xl">
           <div
             className=" w-[85%] h-[37vh] rounded-md m-2"
             style={{
@@ -18,7 +19,7 @@ const TravelPackages = () => {
               backgroundPosition: "top",
             }}
           ></div>
-          <div className="w-full flex flex-col justify-center items-center mt-4">
+          <div className="w-full flex flex-col gap-2 justify-center items-center mt-4">
             <h1 className="text-xl font-bold">{travelPackage.name}</h1>
             <p className="text-lg">${travelPackage.price} per night</p>
             <button className="mt-4 p-2 bg-blue-500 text-white rounded">
@@ -34,9 +35,11 @@ const TravelPackages = () => {
                 ? "✔️Reserve now, pay at stay"
                 : "❌Pay at stay not available"}
             </p>
+            <StarsRating rating={travelPackage.rating}/>
           </div>
         </div>
       ))}
+
     </div>
   );
 };
