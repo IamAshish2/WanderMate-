@@ -7,7 +7,7 @@ const UserLayout = () => {
     <>
         <div className=' flex flex-col p-1 h-100vh w-80%' style={{
         backgroundColor:"whitesmoke",}}>
-                <Header/>
+                {/* <Header/> */}
                 <Outlet/>
                 <Footer/>
         </div>

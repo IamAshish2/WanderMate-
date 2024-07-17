@@ -14,7 +14,6 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage/>} />
-
           <Route path='/user' element={<UserLayout/>} > 
               <Route path="Home" element={<Home/>}/> {/* using outlet */}
               <Route path="destination" element={<Destination/>}/>

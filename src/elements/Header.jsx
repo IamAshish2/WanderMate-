@@ -110,7 +110,7 @@ const Header = () => {
       alt="image"
     />
     <div className="absolute left-8 top-4 hidden md:block">
-      <a href="/SignUp">
+      <a href="/user/home">
       <h1 className="text-4xl font-bold text-blue-600">WanderMate</h1>
       </a>
     </div>
