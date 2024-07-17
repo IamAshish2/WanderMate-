@@ -9,7 +9,7 @@ const Footer = () => {
     // console.log(aboutLinks);
   return (
     <>
-       <div className='rounded-3xl '
+       <div className='rounded-3xl mb-3 h-85 mt-14  w-[85%] ml-auto m-auto  '
         style={{
             backgroundColor:"#FFFFFF"
         }}>

@@ -1,7 +1,9 @@
 import { CiHeart } from "react-icons/ci";
 import { Link } from "react-router-dom";
 
+
 const Cards = ({ data }) => {
+  // console.log({data})
   return (
     <div  className="h-full w-full grid grid-cols-2 xl:grid-cols-4 gap-4 pt-4">
       {data?.map((item) => (

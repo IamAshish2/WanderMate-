@@ -1,12 +1,11 @@
-import { topDestinations , travelPackages} from '../helper-links/Data';
-import Header from '../elements/Header';
-import Footer from '../elements/Footer';
-
+import { topDestinations , travelPackages ,hotels} from '../helper-links/Data';
 import React, { useState } from 'react'
 import '../index.css'
 import headerImg from '../assets/headerImg9.jpg'
 import { IoSearch } from "react-icons/io5";
 import topDestinationImg from "../assets/img7.jpg"
+import hotelIMg from "../assets/img10.jpg"
+import travelPackgesImg from "../assets/img9.jpg"
 import Cards from '../elements/Card';
 
 
@@ -20,7 +19,7 @@ const Home = () => {
             backgroundColor:"whitesmoke",
         }}>
 
-            < Header/>
+            {/* < Header/> */}
 
             {/* search bar conatainer */}
             <div className=' relative flex flex-col justify-center items-center w-[95%] h-[40vh] ml-auto mt-4 mr-auto md:w-[85%] md:h-[50vh] lg:w-[80%] lg:h-[60vh]' style={{
@@ -68,26 +67,38 @@ const Home = () => {
 
             {/* cards container */}
             <div className='flex flex-col mt-14 w-[85%] ml-auto m-auto'>
+                <div>
                     <div className='flex align-center gap-2'>
                         <img src={topDestinationImg} alt="top destination img" 
                             className=' rounded-full h-10 w-10' />
                         <p className='font-bold mt-1 text-md '>Top Destinations</p>
                     </div>
+                    <Cards data={topDestinations}  />
+                </div>
 
-                    <div>
-                        <Cards data={topDestinations}  />
+                    <div className='mt-10'>
+                        <div className='flex align-center gap-2'>
+                            <img src={travelPackgesImg} alt="top destination img" 
+                                className=' rounded-full h-10 w-10' />
+                            <p className='font-bold mt-1 text-md '>Travel Packages</p>
+                        </div>
+                        <Cards data={travelPackages}  />
                     </div>
 
                     <div className='mt-10'>
-                        <h1>TRAVEL PACKAGES</h1>
-                        <Cards data={travelPackages}  />
+                        <div className='flex align-center gap-2'>
+                            <img src={hotelIMg} alt="top destination img" 
+                                className=' rounded-full h-10 w-10' />
+                            <p className='font-bold mt-1 text-md '>Hotels</p>
+                        </div>
+                        <Cards data={hotels}  />
                     </div>
             </div>
 
             {/* footer */}
-            <div className='h-85 mt-14  w-[85%] ml-auto m-auto'>
+            {/* <div className=''>
                 <Footer/>
-            </div>
+            </div> */}
 
         </div>
     </>
