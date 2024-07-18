@@ -1,13 +1,27 @@
-import { hotelPage } from "../helper-links/Data";
+import { useState,useEffect } from "react";
+
+// import { hotelPage } from "../helper-links/Data";
 import StarsRating from "./StarsRating";
+import { getHotels } from "../API";
 
 const Hotels = () => {
+  const [hotels,setHotels] = useState([]);
+
+  useEffect( () => {
+    const fetchHotels = async() => {
+      const data = await getHotels();
+      setHotels(data);
+    }
+
+    fetchHotels();
+  },[])
+
   return (
     <div
       className="flex flex-col ml-auto mr-auto h-90vh w-[80%] "
       style={{ backgroundColor: "whitesmoke" }}
     >
-      {hotelPage.map((hotel) => (
+      {hotels.map((hotel) => (
         <div
           key={hotel.id}
           className="flex h-[75%] justify-center p-1 items-center m-4  border border-gray-200 shadow-2xl rounded-xl" 
@@ -15,7 +29,7 @@ const Hotels = () => {
           <div
             className=" w-[85%] h-[37vh] rounded-md m-2"
             style={{
-              background: `url(${hotel.img})`,
+              background: `url(${hotel.img[0]})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}

@@ -157,6 +157,7 @@ const Header = () => {
         ))}
       </motion.div>
 
+     
       <img
         className="h-10 w-10 object-cover rounded-full absolute right-4 top-1/2 transform -translate-y-1/2"
         src={profileImg}

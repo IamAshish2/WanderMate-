@@ -1,20 +1,31 @@
-import { travelPackagesPage } from "../helper-links/Data";
 import StarsRating from "./StarsRating";
-
+import { useEffect, useState } from "react";
+import { getTravelPackages } from "../API";
+// import { travelPackagesPage } from "../helper-links/Data";
 const TravelPackages = () => {
+  const [travelPackages,setTravelPackages] = useState([])
+
+  useEffect(() => {
+    const fetchTravelPackages = async() => {
+      const data = await getTravelPackages();
+      setTravelPackages(data)
+    }
+    fetchTravelPackages()
+  } ,[])
+
   return (
     <div
       className="flex flex-col ml-auto mr-auto h-90vh w-[80%]"
       style={{ backgroundColor: "whitesmoke" }}
     >
-      {travelPackagesPage.map((travelPackage) => (
+      {travelPackages.map((travelPackage) => (
         <div
           key={travelPackage.id}
           className="flex h-[75%] justify-center items-center m-4  border border-gray-200 shadow-xl rounded-xl">
           <div
             className=" w-[85%] h-[37vh] rounded-md m-2"
             style={{
-              background: `url(${travelPackage.img})`,
+              background: `url(${travelPackage.img[0]})`,
               backgroundSize: "cover",
               backgroundPosition: "top",
             }}
