@@ -24,6 +24,11 @@ import { getTopDestinations ,getHotels,getTravelPackages,getThingsToDo} from "..
 
 const Destination = () =>  { 
 
+  const hotelUrl = "/user/hotels"
+  const topDestinationUrl = "/user/destination"
+  const travelPackagesUrl = "/user/TravelPackages"
+  const thingsToDoUrl = "/user/thingsToDo"
+
     const [topDestinations,setTopDestinations] = useState([])
     const [hotels,setHotels] = useState([])
     const [travelPackages,setTravelPackages] = useState([])
@@ -65,7 +70,7 @@ const Destination = () =>  {
       <div className="flex flex-col p-1 h-100vh w-90%">
 
         <div className="w-full h-full">
-          <Carousel data={destination} />
+          <Carousel data={destination}  />
         </div>
 
         <div className='flex flex-col mt-10 w-[85%] ml-auto m-auto'>
@@ -78,7 +83,7 @@ const Destination = () =>  {
               />
               <p className="font-bold mt-1 text-md ">Top Destinations</p>
             </div>
-            <Cards data={topDestinations} />
+            <Cards data={topDestinations} url={topDestinationUrl} />
           </div>
           
 
@@ -91,7 +96,7 @@ const Destination = () =>  {
             />
             <p className="font-bold mt-1 text-md ">Travel Packages</p>
           </div>
-          <Cards data={travelPackages} />
+          <Cards data={travelPackages} url={travelPackagesUrl} />
         </div>
 
         <div className="mt-10">
@@ -103,7 +108,7 @@ const Destination = () =>  {
             />
             <p className="font-bold mt-1 text-md ">Hotels</p>
           </div>
-          <Cards data={hotels} />
+          <Cards data={hotels} url={hotelUrl} />
         </div>
 
         <div>
@@ -115,7 +120,7 @@ const Destination = () =>  {
               />
               <p className="font-bold mt-1 text-md ">Things To Do</p>
             </div>
-            <Cards data={thingsToDo} />
+            <Cards data={thingsToDo} url={thingsToDoUrl} />
           </div>
 
         </div>

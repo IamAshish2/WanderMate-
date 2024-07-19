@@ -38,10 +38,11 @@ const Carousel = ({ data }) => {
         .map((item) => (
           <div  className="h-[40vh] w-full md:h-[60vh] md:w-[90%] ml-auto mr-auto " key={item.id}>
             <img
-              className="h-full object-cover w-full rounded-lg"
+              className="h-full object-cover w-full rounded-lg relative"
               src={item.img}
               alt="image"
             />
+            {/* <h1 className="">Explore {item.title}</h1> */}
           </div>
         ))}
 
