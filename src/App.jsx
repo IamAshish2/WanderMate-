@@ -10,7 +10,7 @@ import UserLayout from "./Layouts/UserLayout.jsx";
 import Destination from "./Components/Destination.jsx";
 import TravelPackages from "./Components/TravelPackages.jsx";
 import HotelPage from "./HotelPages/HotelPage.jsx";
-import DestinationPage from "../DestinationPage/DestinationPage.jsx";
+import DestinationPage from "./DestinationPage/DestinationPage.jsx"
 import TravelPackagesPage from "../TravelPackages/TravelPackagesPage.jsx";
 import UserProfile from "./Components/UserProfile.jsx";
 
@@ -35,7 +35,9 @@ function App() {
               <Route path="TravelPackages/:id" element={<TravelPackagesPage/>} />
               <Route path="UserProfile" element={<UserProfile/>}/>
           </Route>
-          
+
+            
+
           <Route path='/Signin' element={<SignIn/>}/>
           <Route path="/Signup" element={<SignUp/>} />
 
