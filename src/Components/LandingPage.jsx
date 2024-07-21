@@ -39,15 +39,14 @@ const LandingPage = () => {
 
           <div className="hidden sm:flex h-full w-full items-center justify-center gap-9 lg:gap-14">
             {landingHeaderLinks.slice(0, 4).map((item) => (
-              <>
+              <div key={item.id}>
                 <Link
-                  key={item.id}
                   to={item.link}
                   className="text-base text-white md:text-lg lg:text-xl hover:border-b-4 hover:border-b-yellow-500"
                 >
                   {item.title}
                 </Link>
-              </>
+              </div>
             ))}
           </div>
           

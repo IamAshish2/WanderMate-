@@ -12,6 +12,7 @@ import TravelPackages from "./Components/TravelPackages.jsx";
 import HotelPage from "./HotelPages/HotelPage.jsx";
 import DestinationPage from "../DestinationPage/DestinationPage.jsx";
 import TravelPackagesPage from "../TravelPackages/TravelPackagesPage.jsx";
+import UserProfile from "./Components/UserProfile.jsx";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage/>} />
+
           <Route path='/user' element={<UserLayout/>} > 
               <Route path="Home" element={<Home/>}/> {/* using outlet */}
 
@@ -31,10 +33,9 @@ function App() {
               
               <Route path="TravelPackages" element={<TravelPackages/>}/>
               <Route path="TravelPackages/:id" element={<TravelPackagesPage/>} />
+              <Route path="UserProfile" element={<UserProfile/>}/>
           </Route>
           
-         
-
           <Route path='/Signin' element={<SignIn/>}/>
           <Route path="/Signup" element={<SignUp/>} />
 
