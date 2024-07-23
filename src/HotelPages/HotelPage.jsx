@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { getHotel } from '../API'
+import { useParams } from 'react-router-dom'
+import Tempelate from '../InsidePage/Tempelate';
 
 const HotelPage = () => {
-    
-    const [hotel,setHotel] = useState([])
+    const {id} = useParams();
+    const [hotel,setHotel] = useState(null)
     useEffect(() => {
         const fetchHotel = async() => {
-            const data = await getHotel()
-            setHotel(data)
+            const response = await getHotel(id)
+            setHotel(response)
         }
         fetchHotel()
-    },[])
+    },[id])
 
-
+if(!hotel) return <div>loading...</div>
   return (
-    <p>heihe</p>
+    <Tempelate data={hotel}/>
   )
 }
 

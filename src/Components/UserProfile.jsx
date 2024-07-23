@@ -1,10 +1,23 @@
-import { useState } from "react";
-import { users } from "../../db.json";
+import { useState,useEffect } from "react";
+// import { users } from "../../db.json";
+import batmanCover from "../assets/batman-cover.jpg"
+import userProfile from "../assets/jojo.jpg"
 import { motion } from "framer-motion";
 import { IoMdArrowBack } from "react-icons/io";
+import { getUsers } from "../API";
 
 const UserProfile = () => {
+  const [users,setUsers] = useState([]);
   const [clicked, setClicked] = useState(false);
+
+  useEffect(() => {
+    const fetchUsers = async() => {
+        const data = await getUsers();
+        setUsers(data);
+    }
+
+    fetchUsers();
+  },[])
 
   const handleClick = () => {
     setClicked(!clicked);
@@ -18,23 +31,23 @@ const UserProfile = () => {
           className=" flex flex-col h-[32rem] w-[95%] mr-auto ml-auto mb-10"
         >
           <div
-            className="  h-full w-full rounded-md relative mb-14 "
+            className="  h-80 lg:h-full w-full rounded-md relative mb-14 "
             style={{
-              backgroundImage: `url(${user.coverImage})`,
+              backgroundImage: `url(${batmanCover})`,
               backgroundSize: "cover",
-              backgroundCover: "center",
+              backgroundCover: "top",
             }}
           >
-            <div className=" h-20 flex justify-evenly items-center absolute -bottom-11 md:w-[95%] md:justify-evenly lg:w-[99%] lg:justify-evenly">
+            <div className=" h-20 flex  justify-evenly items-center absolute -bottom-11 md:w-[95%] md:justify-evenly lg:w-[99%] lg:justify-evenly">
               <img
                 className="h-24 w-24 rounded-full ml-6 sm:mr-48 md:mr-56 lg:mr-[500px]"
-                src={user.image}
+                src={userProfile}
                 alt="user profile"
               />
               {/* () => {setClicked(!clicked)}*/}
               <button
                 onClick={handleClick}
-                className="border text-sm border-black rounded-full pl-4 pr-4 mt-10 ml-24 md:ml-24 hover:bg-black hover:text-white transition duration-150 ease-in-out"
+                className="border text-sm border-black rounded-full pl-4 pr-4  mt-10 ml-36 md:ml-24 hover:bg-black hover:text-white transition duration-150 ease-in-out"
               >
                 Edit Profile
               </button>
@@ -69,7 +82,7 @@ const UserProfile = () => {
             <div
               className="  h-52 w-full rounded-md relative mb-10 "
               style={{
-                backgroundImage: `url(${user.coverImage})`,
+                backgroundImage: `url(${batmanCover})`,
                 backgroundSize: "cover",
                 backgroundCover: "center",
                 backgroundPosition:"fixed"
@@ -79,7 +92,7 @@ const UserProfile = () => {
               <div className="  h-20 w-full absolute -bottom-11 ">
                 <img
                   className="h-20 w-20 rounded-full ml-6 sm:mr-48 md:mr-56 lg:mr-[500px]"
-                  src={user.image}
+                  src={userProfile}
                   alt="user profile"
                 />
               </div>

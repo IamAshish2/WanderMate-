@@ -16,7 +16,7 @@ const Header = () => {
       <RxHamburgerMenu
         size={26}
         color="black"
-        className="cursor-pointer block md:hidden"
+        className="cursor-pointer block lg:hidden"
         onClick={() => {
           setOpen(!open);
         }}
@@ -29,15 +29,15 @@ const Header = () => {
         className={`
       h-screen w-[40%] sm:hidden fixed top-0 right-0 bg-white z-50 rounded-lg`}
       >
-        {landingHeaderLinks.map((item) => (
+        {headerLinks.map((item) => (
           <div key={item.id}>
-            <Link
-              className="flex justify-around  font-bold text-gray-600 text-lg pl-4 py-3
+            <Link  onClick={() => {setOpen(!open);}}
+              className="flex justify-around  font-bold text-black-600 text-lg pl-4 py-3
           cursor-pointer hover:bg-gray-100 hover:rounded-lg"
               key={item.id}
               to={item.link}
             >
-              {item.title}
+              {item.linkTitle}
             </Link>
           </div>
         ))}
@@ -51,16 +51,16 @@ const Header = () => {
         />
      </a>
      
-      <div className="absolute left-8 top-4 hidden md:block">
+      <div className="absolute left-8 top-4 hidden md:hidden lg:block">
         <a href="/user/home">
-          <h1 className="text-4xl font-bold text-blue-600">WanderMate</h1>
+          <h3 className="text-4xl font-bold text-blue-600 ">WanderMate</h3>
         </a>
       </div>
       <div className="flex-1 flex justify-center items-center gap-4">
         {headerLinks.map((links) => (
           <Link
             key={links.link}
-            className="p-4 font-bold text-blue hidden md:block text-lg hover:border-b-2 cursor-pointer"
+            className="p-4 font-bold text-blue hidden  lg:block text-lg hover:border-b-2 cursor-pointer"
             to={links.link}
           >
             {links.linkTitle}

@@ -173,7 +173,8 @@
       "name": "Kathmandu Durbar Square",
       "price": 500,
       "img": [
-        "https://res.cloudinary.com/soragatrasambandha/image/upload/f_auto,q_auto/v1/WanderMate/ymy6oklnubpr2pi9n3yy"
+        "https://res.cloudinary.com/soragatrasambandha/image/upload/f_auto,q_auto/v1/WanderMate/ymy6oklnubpr2pi9n3yy",
+         "https://res.cloudinary.com/soragatrasambandha/image/upload/f_auto,q_auto/v1/WanderMate/ymy6oklnubpr2pi9n3yy"
       ],
       "desc": "Kathmandu Durbar Square is the historic heart of Kathmandu with ancient temples, palaces and courtyards including the old royal palace."
     },
@@ -367,12 +368,12 @@
   "users": [
     {
       "id": "1",
-      "name": "sora",
+      "name": "Ashish",
       "email": "user@gmail.com",
       "password": "passuuserUwU",
       "image": "https://res.cloudinary.com/soragatrasambandha/image/upload/v1719430781/ekmdys34ldonak4gbrdz.jpg",
       "coverImage": "https://res.cloudinary.com/soragatrasambandha/image/upload/v1719430786/yyzbkc6drznfthfadwzc.jpg",
-      "bio": "My name is Sora because I was born during a thunderstorm, and 'Sora' means 'sky' in Japanese. The raging storm outside was a powerful force of nature, and my parents wanted to give me a name that reflected the majesty and beauty of the sky."
+      "bio": "My name is Ashish because I was literally a blessing, and 'Ashish' means 'blessing' in Nepalese."
     }
   ]
 }

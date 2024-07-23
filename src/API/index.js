@@ -35,9 +35,19 @@ export const getTravelPackages = async() => {
     }
 }
 
-export const getDestination = async() => {
+export const getTravelPackage = async(id) => {
     try{
-    const response = await axios.get(`${jsonUrl}/destination`)
+        const response = await axios.get(`${jsonUrl}/travelPackages/${id}`)
+        const data =await response.data
+        return data
+    }catch(err){
+        console.log(err)
+    }
+}
+
+export const getDestination = async(id) => {
+    try{
+    const response = await axios.get(`${jsonUrl}/topDestinations/${id}`)
     const data = await response.data
     return data
     }catch(err){

@@ -1,11 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getDestination } from "../API";
+import Tempelate from "../InsidePage/Tempelate";
 
 const DestinationPage = () => {
-  return (
-    <div>
-      This is destination page
-    </div>
-  )
-}
+  const { id } = useParams();
+  const [data, setData] = useState(null);
 
-export default DestinationPage
+  useEffect(() => {
+    const fetchDestination = async () => {
+      const response = await getDestination(id);
+      // console.log(response);
+      setData(response);
+      // console.log(data);
+    };
+    fetchDestination();
+  }, [id]);
+
+  if (!data) return <div>Loading...</div>;
+
+  return (
+       <Tempelate data={data}/>
+  );
+};
+
+export default DestinationPage;

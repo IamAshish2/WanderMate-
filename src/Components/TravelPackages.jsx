@@ -3,15 +3,15 @@ import { useEffect, useState } from "react";
 import { getTravelPackages } from "../API";
 // import { travelPackagesPage } from "../helper-links/Data";
 const TravelPackages = () => {
-  const [travelPackages,setTravelPackages] = useState([])
+  const [travelPackages, setTravelPackages] = useState([]);
 
   useEffect(() => {
-    const fetchTravelPackages = async() => {
+    const fetchTravelPackages = async () => {
       const data = await getTravelPackages();
-      setTravelPackages(data)
-    }
-    fetchTravelPackages()
-  } ,[])
+      setTravelPackages(data);
+    };
+    fetchTravelPackages();
+  }, []);
 
   return (
     <div
@@ -21,7 +21,8 @@ const TravelPackages = () => {
       {travelPackages.map((travelPackage) => (
         <div
           key={travelPackage.id}
-          className="flex h-[75%] justify-center items-center m-4  border border-gray-200 shadow-xl rounded-xl">
+          className="flex h-[75%] justify-center items-center m-4  border border-gray-200 shadow-xl rounded-xl"
+        >
           <div
             className=" w-[85%] h-[37vh] rounded-md m-2"
             style={{
@@ -33,9 +34,12 @@ const TravelPackages = () => {
           <div className="w-full flex flex-col gap-2 justify-center items-center mt-4">
             <h1 className="text-xl font-bold">{travelPackage.name}</h1>
             <p className="text-lg">${travelPackage.price} per night</p>
-            <button className="mt-4 p-2 bg-blue-500 text-white rounded">
-              View Deal
-            </button>
+            <a href={`/user/travelPackages/${travelPackage.id}`}>
+              <button className="mt-4 p-2 bg-blue-500 text-white rounded">
+                View Deal
+              </button>
+            </a>
+
             <p className="text-green-600 text-center flex justify-center items-center">
               {travelPackage.freeCancellation
                 ? "✔️ Free Cancellation"
@@ -46,11 +50,10 @@ const TravelPackages = () => {
                 ? "✔️Reserve now, pay at stay"
                 : "❌Pay at stay not available"}
             </p>
-            <StarsRating rating={travelPackage.rating}/>
+            <StarsRating rating={travelPackage.rating} />
           </div>
         </div>
       ))}
-
     </div>
   );
 };
