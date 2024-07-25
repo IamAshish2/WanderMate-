@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 
 const DashboardMainLayout = () => {
   return (
-        <div className='h-full w-full flex flex-[2.7] bg-white'>
+        <div className=' bg-white w-full h-full  p-0 ' >
              <Outlet/>
         </div>  
   )

@@ -5,7 +5,7 @@ import DashBoardSideLayout from '../Dashboard/DashboardSideLayout'
 
 const DashboardLayout = () => {
   return (
-    <div className='flex'>
+    <div className='flex '>
         <DashBoardSideLayout/>
         
         < DashboardMainLayout/>

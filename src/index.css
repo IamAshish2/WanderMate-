@@ -38,3 +38,11 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 } */
+
+.sticky-sidebar {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0; /* Adjust as needed */
+  height: 100vh; /* Ensure it takes the full height of the viewport */
+  overflow-y: auto; /* Scroll if content overflows */
+}
