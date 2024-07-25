@@ -87,7 +87,7 @@ export const getReviews = async() => {
 
 export const getReview = async(hotelId) => {
     try{
-    const response = await axios.get(`${jsonUrl}/reviews/${hotelId}`)
+    const response = await axios.get(`${jsonUrl}/reviews/?hotelId=${hotelId}`)
     const data = await response.data
     return data
     }catch(err){

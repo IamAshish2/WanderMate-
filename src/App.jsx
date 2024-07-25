@@ -13,6 +13,8 @@ import HotelPage from "./HotelPages/HotelPage.jsx";
 import DestinationPage from "./DestinationPage/DestinationPage.jsx";
 import TravelPackagesPage from "./TravelPackages/TravelPackagesPage.jsx";
 import UserProfile from "./Components/UserProfile.jsx";
+import DashboardLayout from "./Layouts/DashboardLayout.jsx";
+import ManageHotel from "./Dashboard/ManageHotel.jsx";
 
 function App() {
   return (
@@ -30,6 +32,10 @@ function App() {
             <Route path="travelPackages" element={<TravelPackages />} />
             <Route path="travelPackages/:id" element={<TravelPackagesPage />} />
             <Route path="UserProfile" element={<UserProfile />} />
+          </Route>
+
+          <Route path="/dashboard" element={<DashboardLayout/>}>
+          <Route path="manage-hotels" element={<ManageHotel/>}/>
           </Route>
 
           <Route path="/Signin" element={<SignIn />} />
