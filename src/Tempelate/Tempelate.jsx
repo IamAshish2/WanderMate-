@@ -2,15 +2,10 @@ import React ,{useState} from "react";
 import StarsRating from "../Components/StarsRating";
 import { hotelDetails } from "../helper-links/Data";
 import Map from "../Components/Map";
+import WriteReviews from "../elements/WriteReviews";
+import Reviews from "../elements/Reviews";
 
 const Tempelate = ({ data }) => {
-
-  const [reviewData,setReviewData] = useState({
-    comment:"",
-    rating:0,
-  });
-
-  
   return (
     <div className=" p-1 mt-4 md:p-0 h-[100%] w-[100%] md:w-[90%] md:mt-5 lg:w-[85%] mb-10 ml-auto mr-auto">
       <div className="h-[40vh] md:h-[55vh] w-[100%] ml-auto mr-auto ">
@@ -34,7 +29,7 @@ const Tempelate = ({ data }) => {
               <div
                 className="w-[50%] h-full drop-shadow-xl mr-1 "
                 style={{
-                  backgroundImage: `url(${data.img[0]})`,
+                  backgroundImage: `url(${data.img[1]})`,
                   backgroundPosition: "center",
                   backgroundSize: "cover",
                 }}
@@ -94,14 +89,15 @@ const Tempelate = ({ data }) => {
             </div>
       </div>    
 
-      <div className=" p-2 mt-3 mb-4 h-80 gap-2 border text-sm bg-white rounded-lg drop-shadow-md">
+
+      {/* <div className=" p-2 mt-3 mb-4 h-80 gap-2 border text-sm bg-white rounded-lg drop-shadow-md">
         <p className="font-bold text-lg ml-2 mt-2">Write a Review</p>
         <p className="ml-3">Your Review</p>
         <textarea type="text" className="border h-32 w-full ml-2 mt-1 rounded-md"
           onChange={(e) => {handleTextArea(e)}}/>
         <p className="ml-3 mt-2">Your Rating</p>
 
-        {/* stars */}
+        
         <div className="flex mt-1 mb-1">
         <button className="text-2xl ml-2">&#9733;</button>
         <button className="text-2xl ml-2">&#9733;</button>
@@ -110,9 +106,9 @@ const Tempelate = ({ data }) => {
         <button className="text-2xl ml-2">&#9733;</button>
         </div>
         <button className="border w-32 p-2 rounded-md ml-3 bg-blue-500 text-white">Submit Review</button>
+      </div> */}
+      <WriteReviews/>
 
-       
-      </div>
     </div>
   );
 };
