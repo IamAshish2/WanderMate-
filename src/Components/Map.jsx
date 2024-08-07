@@ -8,7 +8,7 @@ export default function Map() {
   const [lng] = useState(139.753);
   const [lat] = useState(35.6844);
   const [zoom] = useState(14);
-  const [API_KEY] = useState(`arGSJdfibWjqukWfmqEV`);
+  const [API_KEY] = useState(`kl7w7bXOYUYgdHJTpexk`);
 
   useEffect(() => {
     if (map.current) return; // stops map from intializing more than once
