@@ -2,12 +2,13 @@
 import axios from "axios";
 import { json } from "react-router-dom";
 
-const jsonUrl = "http://localhost:3000"
+const jsonUrl = "http://localhost:5156"
 
 export const getHotels = async() =>  {
     try{
-        const response = await axios.get(`${jsonUrl}/hotels`)
+        const response = await axios.get(`${jsonUrl}/api/Hotel`)
         const data = await response.data
+        // console.log(data);
         return data
     }catch(err){
         console.log(err)
