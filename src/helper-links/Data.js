@@ -511,7 +511,7 @@ export const adminSidebar = [
   },
   {
     id: 3,
-    to: "dashboard/manage-packages",
+    to: "/dashboard/manage-travelPackages",
     name: "Travel Packages",
   },
   {

@@ -13,6 +13,7 @@ import TravelPackagesPage from "./TravelPackages/TravelPackagesPage.jsx";
 import UserProfile from "./Components/UserProfile.jsx";
 import DashboardLayout from "./Layouts/DashboardLayout.jsx";
 import ManageHotel from "./Dashboard/ManageHotel.jsx";
+import ManageTravelPackages from "./Dashboard/ManageTravelPackages.jsx";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
 
           <Route path="/dashboard" element={<DashboardLayout/>}>
           <Route path="manage-hotels" element={<ManageHotel/>}/>
+          <Route path="manage-travelPackages" element={<ManageTravelPackages/>}/>
           </Route>
 
           <Route path="/Signin" element={<SignIn />} />

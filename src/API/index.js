@@ -28,7 +28,7 @@ export const getHotel = async(id) => {
 
 export const getTravelPackages = async() => {
     try{
-        const response = await axios.get(`${jsonUrl}/travelPackages`)
+        const response = await axios.get(`${jsonUrl}/api/TravelPackages`)
         const data =await response.data
         return data
     }catch(err){
@@ -36,9 +36,10 @@ export const getTravelPackages = async() => {
     }
 }
 
+//http://localhost:5156/api/TravelPackages
 export const getTravelPackage = async(id) => {
     try{
-        const response = await axios.get(`${jsonUrl}/travelPackages/${id}`)
+        const response = await axios.get(`${jsonUrl}/api/TravelPackages/${id}`)
         const data =await response.data
         return data
     }catch(err){

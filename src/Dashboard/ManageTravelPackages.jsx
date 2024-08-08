@@ -1,111 +1,76 @@
 import React, { useEffect, useState } from "react";
-import { getHotels } from "../API/index.js";
+import { getTravelPackages } from "../API";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
-const ManageHotel = () => {
-  // const {id} = useParams();
-  const [hotels, setHotel] = useState([]);
+const ManageTravelPackages = () => {
   const [open, setOpen] = useState(false);
-  const [hotelIdForDelete, setHotelIdForDelete] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [travelPackageIdForDelete, setTravelPackageIdForDelete] =
+    useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [travelPackages, setTravelPackages] = useState([]);
   const [id, setId] = useState(null);
   const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
   const [images, setImages] = useState([]);
+  const [description, setDescription] = useState("");
   const [freeCancellation, setFreeCancellation] = useState(false);
   const [reserveNow, setReserveNow] = useState(false);
-  const [description, setDescription] = useState("");
-  // const [currentHotel, setCurrentHotel] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   const handleImageChange = (e) => {
     const selectedImage = Array.from(e.target.files);
     setImages((prevImage) => [...prevImage, ...selectedImage]);
   };
 
-  const handleImageDelete = (index) => {
-    setImages((prevImage) => prevImage.filter((_, i) => i !== index));
-  };
-
-  const fetchHotel = async () => {
-    const data = await getHotels();
-    setHotel(data);
-  };
-
-  useEffect(() => {
-    fetchHotel();
-  }, []);
-
-  const handleEdit = (hotel) => {
-    console.log("Editing hotel: ", hotel);
-    setId(hotel.id);
-    setIsEditing(true);
-    setName(hotel.name);
-    setPrice(hotel.price);
-    setImages(hotel.imageUrl || []);
-    setFreeCancellation(hotel.freeCancellation);
-    setReserveNow(hotel.reserveNow);
-    setDescription(hotel.description);
-  };
-
+  //duplicate image upload is still happening. Check for it!!!!
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // let imageUrls = await uploadImagesToCloudinary();
 
     const newImages = images.filter(
       (image) => image instanceof Blob || image instanceof File
     );
-
     const existingImages = images.filter((image) => typeof image == "string");
-
-    // upload new images if any
     const newImageUrls =
       newImages.length > 0 ? await uploadImagesToCloudinary(newImages) : [];
-    console.log("new image urls", newImageUrls);
-
     const combinedImageUrls = [...existingImages, ...newImageUrls];
     const imageUrl = combinedImageUrls.filter(
       (item) => Object.keys(item).length !== 0
     );
 
-    const hotelData = {
+    const travelPackageData = {
       Name: name,
-      Price: price,
       ImageUrl: imageUrl,
+      Description: description,
       FreeCancellation: freeCancellation,
       ReserveNow: reserveNow,
-      Description: description,
     };
 
+    // while editing existing travel package
     const editData = async () => {
       try {
         const response = await axios.put(
-          `http://localhost:5156/api/Hotel/${id}`,
-          hotelData
+          `http://localhost:5156/api/TravelPackages/${id}`,
+          travelPackageData
         );
-        console.log("Hotel updated: ", response);
+        // console.log(response);
         setLoading(false);
-        fetchHotel();
+        fetchTravelPackages();
         resetForm();
       } catch (err) {
         Console.log("Error occured: ", err);
       }
     };
 
+    // while creating a new travel Package
     const uploadData = async () => {
       setLoading(true);
       try {
-        const response = await axios.post(
-          "http://localhost:5156/api/Hotel",
-          hotelData
+        const upload = await axios.post(
+          "http://localhost:5156/api/TravelPackages",
+          travelPackageData
         );
-        setLoading(false);
-        fetchHotel();
-        // console.log(response);
-      } catch (err) {
-        setLoading(false);
-        console.log(err);
+        fetchTravelPackages();
+      } catch (e) {
+        console.log("error occured:", e);
       }
       resetForm();
     };
@@ -113,48 +78,49 @@ const ManageHotel = () => {
     isEditing ? editData() : uploadData();
   };
 
-  const resetForm = () => {
-    setName("");
-    setPrice("");
-    setImages([]);
-    setFreeCancellation();
-    setReserveNow();
-    setDescription("");
+  const handleImageDelete = (id) => {
+    setImages((prevImage) => prevImage.filter((_, index) => index !== id));
+  };
+
+  const handleEdit = (travelPackage) => {
+    // console.log(travelPackage);
+    setId(travelPackage.id);
+    setName(travelPackage.name);
+    setDescription(travelPackage.description);
+    setImages(travelPackage.imageUrl);
+    setFreeCancellation(travelPackage.freeCancellation);
+    setIsEditing(true);
   };
 
   const handleDelete = async (id) => {
-    // setHotel((prevHotel) => prevHotel.filter((hotel) => hotel.id !== id)); ui only delete
-
     try {
       const response = await axios.delete(
-        `http://localhost:5156/api/Hotel/${id}`
+        `http://localhost:5156/api/TravelPackages/${id}`
       );
-      console.log(response);
-
-      fetchHotel();
-    } catch (err) {
-      console.log(err);
+      // console.log(response);
+      fetchTravelPackages();
+    } catch (e) {
+      console.log(e);
     }
   };
 
-  // const uploadImagesToCloudinary = async () => {
-  //   const cloudinaryURL =
-  //     "https://api.cloudinary.com/v1_1/dtw0fbcyi/image/upload";
-  //   const uploadPreset = "nxvaoz6l";
+  const resetForm = () => {
+    setName("");
+    setDescription("");
+    setImages([]);
+    setFreeCancellation("");
+    setFreeCancellation(false);
+    setReserveNow(false);
+  };
 
-  //   const imagesUrls = await Promise.all(
-  //     images.map(async (image) => {
-  //       const formData = new FormData();
-  //       formData.append("file", image);
-  //       formData.append("upload_preset", uploadPreset);
+  const fetchTravelPackages = async () => {
+    const response = await getTravelPackages();
+    setTravelPackages(response);
+  };
 
-  //       const response = await axios.post(cloudinaryURL, formData);
-  //       return response.data.url;
-  //     })
-  //   );
-
-  //   return imagesUrls;
-  // };
+  useEffect(() => {
+    fetchTravelPackages();
+  }, []);
 
   const uploadImagesToCloudinary = async (newImages) => {
     const cloudinaryURL =
@@ -163,10 +129,6 @@ const ManageHotel = () => {
 
     try {
       const imageUrls = await Promise.all(
-        //binary large object
-        // A Blob is designed to hold binary data such as images, videos, files or other
-        // types of binary data that are not text based.
-
         images
           .filter((image) => image instanceof Blob || image instanceof File)
           .map(async (image) => {
@@ -175,24 +137,20 @@ const ManageHotel = () => {
             formData.append("upload_preset", uploadPreset);
 
             const response = await axios.post(cloudinaryURL, formData);
-            // console.log("cloudinary response", response.data.url);
             return response.data.url;
           })
       );
-      // console.log("image urls: ", imageUrls);
       return imageUrls;
     } catch (err) {
       console.error("Error uploading images to Cloudinary:", err);
     }
   };
 
-  if (!hotels) return <div>loading...</div>;
-
   return (
     <div className="m-0 shadow-xl ">
       <div className=" ml-auto mr-auto">
         <h1 className="font-bold text-3xl mt-3 ml-3">
-          {isEditing ? "Edit Hotel" : "Add New Hotel"}
+          {isEditing ? "Edit TravelPackages" : "Add New TravelPackages"}
         </h1>
 
         <form className="ml-3" onSubmit={(e) => handleSubmit(e)}>
@@ -202,14 +160,6 @@ const ManageHotel = () => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-          />
-
-          <p className="text-lg font-semibold mt-5">Price</p>
-          <input
-            className="w-full px-5 py-3 rounded-md font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-blue-600 focus:bg-blue-100"
-            type="text"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
           />
 
           <p className="text-lg font-semibold mt-5">Images</p>
@@ -268,7 +218,7 @@ const ManageHotel = () => {
           <button
             className={`bg-blue-500 text-white px-5 py-3 rounded-md mt-5 hover:outline-none hover:bg-indigo-700  cursor-pointer ${loading ? "cursor-not-allowed bg-blue-300" : "cursor-pointer"}`}
           >
-            {isEditing ? "Update hotel" : "Add Hotel"}
+            {isEditing ? "Update TravelPackages" : "Add TravelPackages"}
           </button>
         </form>
       </div>
@@ -281,7 +231,7 @@ const ManageHotel = () => {
                 Name
               </th>
               <th scope="col" className="px-6 py-3">
-                Price
+                Description
               </th>
               <th scope="col" className="px-16 py-3  w-10">
                 Action
@@ -289,47 +239,18 @@ const ManageHotel = () => {
             </tr>
           </thead>
 
-          {/* {hotels.map((hotel) => (
-            <tbody key={hotel.id}>
-              <tr className="bg-white border-b dark:border-gray-700">
-                <td className="px-6 py-4">{hotel.name}</td>
-                <td className="px-6 py-4">{hotel.price}</td>
-                <td className="flex  mt-4 gap-3">
-                  <button
-                    onClick={() => {
-                      handleEdit(hotel);
-                    }}
-                    className="border border-gray-500 p-1 w-20 rounded  bg-green-500 text-white font-bold border-none"
-                  >
-                    Edit
-                  </button>
-                  x
-                  <button
-                    onClick={() => {
-                      setOpen(true);
-                      setHotelIdForDelete(hotel.id);
-                    }}
-                    className="border border-gray-500 p-1 w-20 rounded  bg-red-500 text-white font-bold border-none"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          ))} */}
-
           <tbody>
-            {Array.isArray(hotels) && hotels.length > 0 ? (
-              hotels.map((hotel) => (
+            {Array.isArray(travelPackages) && travelPackages.length > 0 ? (
+              travelPackages.map((travelPackage) => (
                 <tr
-                  key={hotel.id}
+                  key={travelPackage.id}
                   className="bg-white border-b dark:border-gray-700"
                 >
-                  <td className="px-6 py-4">{hotel.name}</td>
-                  <td className="px-6 py-4">{hotel.price}</td>
+                  <td className="px-6 py-4">{travelPackage.name}</td>
+                  <td className="px-6 py-4">{travelPackage.description}</td>
                   <td className="flex mt-4 gap-3">
                     <button
-                      onClick={() => handleEdit(hotel)}
+                      onClick={() => handleEdit(travelPackage)}
                       className="border border-gray-500 p-1 w-20 rounded bg-green-500 text-white font-bold border-none"
                     >
                       Edit
@@ -337,7 +258,7 @@ const ManageHotel = () => {
                     <button
                       onClick={() => {
                         setOpen(true);
-                        setHotelIdForDelete(hotel.id);
+                        setTravelPackageIdForDelete(travelPackage.id);
                       }}
                       className="border border-gray-500 p-1 w-20 rounded bg-red-500 text-white font-bold border-none"
                     >
@@ -355,13 +276,14 @@ const ManageHotel = () => {
             )}
           </tbody>
         </table>
+
         <div
           className={` absolute top-[50%] left-[50%] right:[50%] flex  h-16 w border border-green-500 bg-red-500 ${open ? "visible" : "hidden"} `}
         >
           <button
             className="bg-red-500 p-4"
             onClick={() => {
-              handleDelete(hotelIdForDelete);
+              handleDelete(travelPackageIdForDelete);
               setOpen(false);
             }}
           >
@@ -373,7 +295,6 @@ const ManageHotel = () => {
               setOpen(false);
             }}
           >
-            {" "}
             No
           </button>
         </div>
@@ -381,4 +302,5 @@ const ManageHotel = () => {
     </div>
   );
 };
-export default ManageHotel;
+
+export default ManageTravelPackages;
