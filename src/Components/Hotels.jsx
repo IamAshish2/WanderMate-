@@ -33,7 +33,7 @@ const Hotels = () => {
           <div
             className=" w-[85%] h-[37vh] rounded-md m-2"
             style={{
-              background: `url(${hotel.img[0]})`,
+              background: `url(${hotel.imageUrl[0]})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
