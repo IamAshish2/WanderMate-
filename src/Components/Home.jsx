@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "../index.css";
 import headerImg from "../assets/headerImg9.jpg";
 import { IoSearch } from "react-icons/io5";
@@ -6,42 +6,54 @@ import topDestinationImg from "../assets/img7.jpg";
 import hotelIMg from "../assets/img10.jpg";
 import travelPackgesImg from "../assets/img9.jpg";
 import Cards from "../elements/Card";
+import axios from "axios";
 
 // import { topDestinations, travelPackages, hotels } from "../helper-links/Data";
-import { getTopDestinations ,getHotels,getTravelPackages,getThingsToDo} from "../API";
+import {
+  getTopDestinations,
+  getHotels,
+  getTravelPackages,
+  getThingsToDo,
+} from "../API";
 
 const Home = () => {
+  const hotelUrl = "/user/hotels";
+  const topDestinationUrl = "/user/destination";
+  const travelPackagesUrl = "/user/TravelPackages";
+  const thingsToDoUrl = "/user/thingsToDo";
 
-  const hotelUrl = "/user/hotels"
-  const topDestinationUrl = "/user/destination"
-  const travelPackagesUrl = "/user/TravelPackages"
-  const thingsToDoUrl = "/user/thingsToDo"
+  const [topDestinations, setTopDestinations] = useState([]);
+  const [hotels, setHotels] = useState([]);
+  const [travelPackages, setTravelPackages] = useState([]);
 
-  const [topDestinations,setTopDestinations] = useState([])
-  const [hotels,setHotels] = useState([])
-  const [travelPackages,setTravelPackages] = useState([])
+  useEffect(() => {
+    // const getTopDestination = async () => {
+    //   const data = await getTopDestinations();
+    //   setTopDestinations(data);
+    // };
+    // getTopDestination();
 
-  useEffect( () => {
-    const getTopDestination = async() => {
-      const data = await getTopDestinations();
-      setTopDestinations(data)
-    }
-    getTopDestination(); 
-
-    const getHotel = async() => {
-      const data = await getHotels();
-      setHotels(data);
-    }
+    const getHotel = async () => {
+      const token = localStorage.getItem("token");
+      let response;
+      if (token) {
+        response = await axios.get("http://localhost:5156/api/Hotel", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        // console.log(response.data);
+        setHotels(response.data);
+      }
+    };
     getHotel();
 
-    const getTravelPackage = async() => {
-      const data = await getTravelPackages()
-      setTravelPackages(data)
-      
-    }
+    const getTravelPackage = async () => {
+      const data = await getTravelPackages();
+      setTravelPackages(data);
+    };
     getTravelPackage();
-
-  },[])
+  }, []);
 
   return (
     <>
@@ -66,7 +78,6 @@ const Home = () => {
             borderRadius: "8px",
           }}
         >
-
           <div className="h-[12%] lg:w-[39%] absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] bg-white flex justify-center items-center gap-2 p-1 md:p-4 rounded-lg">
             <input
               className="h-[90%] w-[80%] lg:w-[90%] border-none outline-none text-xs sm:text-sm md:text-base lg:text-lg"
@@ -96,7 +107,7 @@ const Home = () => {
 
         {/* cards container */}
         <div className="flex flex-col mt-14 w-[85%] ml-auto m-auto">
-          <div>
+          {/* <div>
             <div className="flex align-center gap-2">
               <img
                 src={topDestinationImg}
@@ -106,7 +117,7 @@ const Home = () => {
               <p className="font-bold mt-1 text-md ">Top Destinations</p>
             </div>
             <Cards data={topDestinations} url={topDestinationUrl} />
-          </div>
+          </div> */}
 
           <div className="mt-10">
             <div className="flex align-center gap-2">
@@ -132,7 +143,6 @@ const Home = () => {
             <Cards data={hotels} url={hotelUrl} />
           </div>
         </div>
-
       </div>
     </>
   );
