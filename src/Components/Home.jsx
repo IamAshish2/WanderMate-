@@ -27,11 +27,11 @@ const Home = () => {
   const [travelPackages, setTravelPackages] = useState([]);
 
   useEffect(() => {
-    // const getTopDestination = async () => {
-    //   const data = await getTopDestinations();
-    //   setTopDestinations(data);
-    // };
-    // getTopDestination();
+    const getTopDestination = async () => {
+      const data = await getTopDestinations();
+      setTopDestinations(data);
+    };
+    getTopDestination();
 
     const getHotel = async () => {
       const token = localStorage.getItem("token");
@@ -68,7 +68,7 @@ const Home = () => {
 
         {/* search bar conatainer */}
         <div
-          className=" relative flex flex-col justify-center items-center w-[95%] h-[40vh] ml-auto mt-4 mr-auto md:w-[85%] md:h-[50vh] lg:w-[80%] lg:h-[60vh]"
+          className=" relative flex flex-col justify-center items-center w-[95%] h-[40vh] ml-auto mt-4 mr-auto md:w-[85%] md:h-[50vh] lg:w-[80%] lg:h-[70vh]"
           style={{
             background: `url(${headerImg})`,
             backgroundSize: "cover",
@@ -107,7 +107,7 @@ const Home = () => {
 
         {/* cards container */}
         <div className="flex flex-col mt-14 w-[85%] ml-auto m-auto">
-          {/* <div>
+          <div>
             <div className="flex align-center gap-2">
               <img
                 src={topDestinationImg}
@@ -117,7 +117,7 @@ const Home = () => {
               <p className="font-bold mt-1 text-md ">Top Destinations</p>
             </div>
             <Cards data={topDestinations} url={topDestinationUrl} />
-          </div> */}
+          </div>
 
           <div className="mt-10">
             <div className="flex align-center gap-2">

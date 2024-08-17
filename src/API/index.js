@@ -88,7 +88,7 @@ export const getDestination = async(id) => {
         const token = localStorage.getItem("token");
         let response;
         if (token) {
-          response = await axios.get(`${jsonUrl}//topDestinations/${id}`, {
+          response = await axios.get(`${jsonUrl}/api/Destinations/${id}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -107,7 +107,7 @@ export const getTopDestinations = async() => {
         const token = localStorage.getItem("token");
         let response;
         if (token) {
-          response = await axios.get(`${jsonUrl}/api/topDestinations`, {
+          response = await axios.get(`${jsonUrl}/api/Destinations`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -171,6 +171,8 @@ export const getUsers = async() => {
 
 export const getUser = async (id) => {
     try {
+      const token = localStorage.getItem("token");
+      const id = await axios.matchToken(token);
         console.log(id);
         const response = await axios.get(`${jsonUrl}/api/User/${id}`);
         console.log(response);

@@ -20,60 +20,59 @@ import Carousel from "./Carousel";
 
 import { RxHamburgerMenu } from "react-icons/rx";
 import { landingHeaderLinks, headerLinks } from "../helper-links/Data";
-import { getTopDestinations ,getHotels,getTravelPackages,getThingsToDo} from "../API";
+import {
+  getTopDestinations,
+  getHotels,
+  getTravelPackages,
+  getThingsToDo,
+} from "../API";
 
-const Destination = () =>  { 
+const Destination = () => {
+  const hotelUrl = "/user/hotels";
+  const topDestinationUrl = "/user/destination";
+  const travelPackagesUrl = "/user/TravelPackages";
+  const thingsToDoUrl = "/user/thingsToDo";
 
-  const hotelUrl = "/user/hotels"
-  const topDestinationUrl = "/user/destination"
-  const travelPackagesUrl = "/user/TravelPackages"
-  const thingsToDoUrl = "/user/thingsToDo"
+  const [topDestinations, setTopDestinations] = useState([]);
+  const [hotels, setHotels] = useState([]);
+  const [travelPackages, setTravelPackages] = useState([]);
+  const [thingsToDo, setThingsToDo] = useState([]);
 
-    const [topDestinations,setTopDestinations] = useState([])
-    const [hotels,setHotels] = useState([])
-    const [travelPackages,setTravelPackages] = useState([])
-    const [thingsToDo,setThingsToDo] = useState([])
-  
-  
-    useEffect( () => {
-      const getTopDestination = async() => {
-        const data = await getTopDestinations();
-        setTopDestinations(data)
-        // console.log(data)
-      }
-      getTopDestination(); 
+  useEffect(() => {
+    const getTopDestination = async () => {
+      const data = await getTopDestinations();
+      setTopDestinations(data);
+      // console.log(data)
+    };
+    getTopDestination();
 
-      const getHotel = async() => {
-        const data = await getHotels();
-        setHotels(data);
-      }
-      getHotel();
+    const getHotel = async () => {
+      const data = await getHotels();
+      setHotels(data);
+    };
+    getHotel();
 
-      const getTravelPackage = async() => {
-        const data = await getTravelPackages()
-        setTravelPackages(data)
-        
-      }
-      getTravelPackage();
+    const getTravelPackage = async () => {
+      const data = await getTravelPackages();
+      setTravelPackages(data);
+    };
+    getTravelPackage();
 
-      const getThingsToDos = async() => {
-        const data = await getThingsToDo()
-        setThingsToDo(data)
-        
-      }
-      getThingsToDos();
-    },[])
-
+    // const getThingsToDos = async () => {
+    //   const data = await getThingsToDo();
+    //   setThingsToDo(data);
+    // };
+    // getThingsToDos();
+  }, []);
 
   return (
     <>
       <div className="flex flex-col p-1 h-100vh w-90%">
-
         <div className="w-full h-full">
-          <Carousel data={destination}  />
+          <Carousel data={destination} />
         </div>
 
-        <div className='flex flex-col mt-10 w-[85%] ml-auto m-auto'>
+        <div className="flex flex-col mt-10 w-[85%] ml-auto m-auto">
           <div>
             <div className="flex align-center gap-2">
               <img
@@ -85,34 +84,33 @@ const Destination = () =>  {
             </div>
             <Cards data={topDestinations} url={topDestinationUrl} />
           </div>
-          
 
           <div className="mt-10">
-          <div className="flex align-center gap-2">
-            <img
-              src={travelPackgesImg}
-              alt="top destination img"
-              className=" rounded-full h-10 w-10"
-            />
-            <p className="font-bold mt-1 text-md ">Travel Packages</p>
+            <div className="flex align-center gap-2">
+              <img
+                src={travelPackgesImg}
+                alt="top destination img"
+                className=" rounded-full h-10 w-10"
+              />
+              <p className="font-bold mt-1 text-md ">Travel Packages</p>
+            </div>
+            <Cards data={travelPackages} url={travelPackagesUrl} />
           </div>
-          <Cards data={travelPackages} url={travelPackagesUrl} />
-        </div>
 
-        <div className="mt-10">
-          <div className="flex align-center gap-2">
-            <img
-              src={hotelIMg}
-              alt="top destination img"
-              className=" rounded-full h-10 w-10"
-            />
-            <p className="font-bold mt-1 text-md ">Hotels</p>
+          <div className="mt-10">
+            <div className="flex align-center gap-2">
+              <img
+                src={hotelIMg}
+                alt="top destination img"
+                className=" rounded-full h-10 w-10"
+              />
+              <p className="font-bold mt-1 text-md ">Hotels</p>
+            </div>
+            <Cards data={hotels} url={hotelUrl} />
           </div>
-          <Cards data={hotels} url={hotelUrl} />
-        </div>
 
-        <div>
-            <div className="flex align-center gap-2 mt-10">
+          <div>
+            {/* <div className="flex align-center gap-2 mt-10">
               <img
                 src={topDestinationImg}
                 alt="top destination img"
@@ -120,12 +118,9 @@ const Destination = () =>  {
               />
               <p className="font-bold mt-1 text-md ">Things To Do</p>
             </div>
-            <Cards data={thingsToDo} url={thingsToDoUrl} />
+            <Cards data={thingsToDo} url={thingsToDoUrl} /> */}
           </div>
-
         </div>
-
-    
       </div>
     </>
   );
