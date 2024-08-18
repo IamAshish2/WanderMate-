@@ -1,6 +1,4 @@
-
 import axios from "axios";
-import { json } from "react-router-dom";
 
 const jsonUrl = "http://localhost:5156"
 
@@ -181,5 +179,30 @@ export const getUser = async (id) => {
         console.error('Error fetching user:', err.response ? err.response.data : err.message);
         throw err; // Optionally rethrow the error if you need to handle it further up
     }
+}
+
+export const verifyUserLogin = async() => {
+  const token = localStorage.getItem("token");
+        let response;
+        if (token) {
+          response = await axios.get(`${jsonUrl}/api/Hotel`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+        }
+        return token ? "verified" : "not verified";
+}
+
+export const getUserEmailByToken = async(token) => {
+  const response = await axios.get(`http://localhost:5156/api/Authentication/getuser?token=${token}`);
+  return response.data.email;
+}
+
+export const getUserByEmail = async(email) => {
+  const response = await axios.get(`http://localhost:5156/api/User/UserEmail/${email}`);
+  const data = await response.data;
+  console.log(data);
+  return data;
 }
 
