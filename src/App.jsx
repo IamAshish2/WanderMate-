@@ -14,15 +14,52 @@ import UserProfile from "./Components/UserProfile.jsx";
 import DashboardLayout from "./Layouts/DashboardLayout.jsx";
 import ManageHotel from "./Dashboard/ManageHotel.jsx";
 import ManageTravelPackages from "./Dashboard/ManageTravelPackages.jsx";
+import ManageDestination from "./Dashboard/ManageDestination.jsx";
+import Protected from "./Protected/Protected.jsx";
+import RedirectIfAuthenticated from "./Protected/RedirectIfAuthenticated.jsx";
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route
+            path="/Signin"
+            element={
+              <RedirectIfAuthenticated>
+                <SignIn />
+              </RedirectIfAuthenticated>
+            }
+          />
+          <Route
+            path="/Signup"
+            element={
+              <RedirectIfAuthenticated>
+                <SignUp />
+              </RedirectIfAuthenticated>
+            }
+          />
 
-          <Route path="/user" element={<UserLayout />}>
+          <Route
+            path="/"
+            element={
+              <RedirectIfAuthenticated>
+                <SignIn />
+              </RedirectIfAuthenticated>
+            }
+          />
+          <Route path="user/LandingPage" element={<LandingPage />} />
+
+          {/* Protected Routes for User Layout */}
+          <Route
+            path="/user"
+            element={
+              <Protected allowedRoles={["User"]}>
+                <UserLayout />
+              </Protected>
+            }
+          >
+            {/* <Route path="/user" element={<UserLayout />}> */}
             <Route path="Home" element={<Home />} /> {/* using outlet */}
             <Route path="destination" element={<Destination />} />
             <Route path="destination/:id" element={<DestinationPage />} />
@@ -33,13 +70,23 @@ function App() {
             <Route path="UserProfile" element={<UserProfile />} />
           </Route>
 
-          <Route path="/dashboard" element={<DashboardLayout/>}>
-          <Route path="manage-hotels" element={<ManageHotel/>}/>
-          <Route path="manage-travelPackages" element={<ManageTravelPackages/>}/>
+          {/* dashboard */}
+          {/* <Route path="/dashboard" element={<DashboardLayout />}> */}
+          <Route
+            path="/dashboard"
+            element={
+              <Protected allowedRoles={["Admin"]}>
+                <DashboardLayout />
+              </Protected>
+            }
+          >
+            <Route path="manage-hotels" element={<ManageHotel />} />
+            <Route
+              path="manage-travelPackages"
+              element={<ManageTravelPackages />}
+            />
+            <Route path="destination" element={<ManageDestination />} />
           </Route>
-
-          <Route path="/Signin" element={<SignIn />} />
-          <Route path="/Signup" element={<SignUp />} />
         </Routes>
       </Router>
     </>
