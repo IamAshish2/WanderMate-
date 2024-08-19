@@ -10,9 +10,9 @@ const UserProfile = () => {
   const [id, setId] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [bio, setBio] = useState("i am sora");
-  const [location, setLocation] = useState("itahari");
-  const [occupation, setOccupation] = useState("occ");
+  const [bio, setBio] = useState("");
+  const [location, setLocation] = useState("");
+  const [occupation, setOccupation] = useState("");
 
   const [user, setUser] = useState([]);
   const [clicked, setClicked] = useState(false);
@@ -37,20 +37,19 @@ const UserProfile = () => {
   }, [clicked]);
 
   const handleEdit = (user) => {
-    // setId(user.id);
-    // setName(user.userName);
+    setId(user.id);
+    setName(user.userName);
     // setEmail(user.email);
-    // setBio(user.bio);
-    // setLocation(user.location);
-    // setOccupation(user.occupation);
+    setBio(user.bio);
+    setLocation(user.location);
+    setOccupation(user.occupation);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefalut();
+  const handleSubmit = () => {
+    // e.preventDefalut();
 
     const userData = {
       UserName: name,
-      Email: email,
       Occupation: occupation,
       Bio: bio,
       Location: location,
@@ -118,7 +117,7 @@ const UserProfile = () => {
         {/* edit profile section */}
         {clicked && (
           <form
-            onSubmit={(e) => handleSubmit(e)}
+            // onSubmit={(e) => handleSubmit(e)}
             className={`h-screen w-full fixed top-2 p-4 mb-4 md:p-4 md:h-[90vh] md:mt-[63px] md:mb-[20px] md:w-[45%] md:mr-[100px] rounded-md z-50 text-white bg-black right-2 overflow-y-scroll`}
           >
             {/*  */}
@@ -136,7 +135,10 @@ const UserProfile = () => {
               />
               <p className="text-white font-bold text-xl">Edit profile</p>
               <button
-                type="submit"
+                onClick={() => {
+                  handleSubmit();
+                }}
+                // type="submit"
                 className="bg-white text-black font-semibold border pt-1 pb-1 pl-5 pr-5 rounded-full"
               >
                 Save
@@ -171,13 +173,13 @@ const UserProfile = () => {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Name"
               />
-              <input
+              {/* <input
                 className="border mt-4 h-14 rounded-md placeholder:pl-2"
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
-              />
+              /> */}
               <textarea
                 className="border mt-4 h-28 rounded-md placeholder:pl-2"
                 placeholder="Bio"
