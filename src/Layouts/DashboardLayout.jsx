@@ -1,16 +1,14 @@
-import React from 'react'
-import DashboardMainLayout from '../Dashboard/DashboardMainLayout'
-import DashBoardSideLayout from '../Dashboard/DashboardSideLayout'
-// import { Outlet } from 'react-router-dom'
+import React from "react";
+import DashBoardSideLayout from "../Dashboard/DashboardSideLayout";
+import { Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   return (
-    <div className='flex '>
-        <DashBoardSideLayout/>
-        
-        < DashboardMainLayout/>
+    <div className="flex">
+      <DashBoardSideLayout />
+      <Outlet />
     </div>
-  )
-}
+  );
+};
 
-export default DashboardLayout
+export default DashboardLayout;

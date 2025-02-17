@@ -290,17 +290,17 @@ export const thingsToDo = [
 
 export const hotelDetails = [
   {
-    id: 1,
+    id: 11,
     name: "About",
     to: "#about",
   },
   {
-    id: 2,
+    id: 12,
     name: "Location",
     to: "#location",
   },
   {
-    id: 1,
+    id: 13,
     name: "Reviews",
     to: "#reviews",
   },
@@ -516,12 +516,18 @@ export const adminSidebar = [
   },
   {
     id: 4,
-    to: "dashboard/manage-bookings",
-    name: "Bookings",
+    to: "/dashboard/Destination",
+    name: "Destination",
   },
   {
     id: 5,
+    to: "/dashboard/manage-bookings",
+    name: "Bookings",
+  },
+  {
+    id: 6,
     to: "dashboard/manage-reviews",
     name: "Reviews",
   },
+
 ];
