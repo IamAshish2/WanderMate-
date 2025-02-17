@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getDestination } from "../API";
 import Tempelate from "../Tempelate/Tempelate";
+import { destination } from "../helper-links/Data";
 
 const DestinationPage = () => {
   const { id } = useParams();
@@ -10,9 +11,7 @@ const DestinationPage = () => {
   useEffect(() => {
     const fetchDestination = async () => {
       const response = await getDestination(id);
-      // console.log(response);
       setData(response);
-      // console.log(data);
     };
     fetchDestination();
   }, [id]);

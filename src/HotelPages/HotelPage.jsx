@@ -7,7 +7,6 @@ const HotelPage = () => {
   const { id } = useParams();
   const [hotel, setHotel] = useState(null);
 
-
   useEffect(() => {
     const fetchHotel = async () => {
       const response = await getHotel(id);
