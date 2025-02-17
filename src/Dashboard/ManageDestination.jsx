@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getTopDestinations } from "../API";
 import axios from "axios";
+import { Hotel, PencilIcon, Trash2, X, ImagePlus, Save } from "lucide-react";
+
 
 const ManageDestination = () => {
   const [open, setOpen] = useState(false);
@@ -9,6 +11,7 @@ const ManageDestination = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [destination, setDestination] = useState([]);
   const [id, setId] = useState(null);
+  const [price, setPrice] = useState(null);
   const [name, setName] = useState("");
   const [images, setImages] = useState([]);
   const [description, setDescription] = useState("");
@@ -38,6 +41,7 @@ const ManageDestination = () => {
     const destinationData = {
       Name: name,
       ImageUrl: imageUrl,
+      Price: price,
       Description: description,
       FreeCancellation: freeCancellation,
       ReserveNow: reserveNow,
@@ -50,7 +54,6 @@ const ManageDestination = () => {
           `http://localhost:5156/api/Destinations/${id}`,
           destinationData
         );
-        // console.log(response);
         setLoading(false);
         fetchDestination();
         resetForm();
@@ -82,10 +85,10 @@ const ManageDestination = () => {
   };
 
   const handleEdit = (destination) => {
-    // console.log(travelPackage);
     setId(destination.id);
     setName(destination.name);
     setDescription(destination.description);
+    setPrice(destination.price);
     setImages(destination.imageUrl);
     setFreeCancellation(destination.freeCancellation);
     setIsEditing(true);
@@ -96,7 +99,6 @@ const ManageDestination = () => {
       const response = await axios.delete(
         `http://localhost:5156/api/Destinations/${id}`
       );
-      // console.log(response);
       fetchDestination();
     } catch (e) {
       console.log(e);
@@ -106,6 +108,7 @@ const ManageDestination = () => {
   const resetForm = () => {
     setName("");
     setDescription("");
+    setPrice("");
     setImages([]);
     setFreeCancellation("");
     setFreeCancellation(false);
@@ -159,6 +162,14 @@ const ManageDestination = () => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
+          />
+
+          <p className="text-lg font-semibold mt-5">Price</p>
+          <input
+            className="w-full px-5 py-3 rounded-md font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-blue-600 focus:bg-blue-100"
+            type="text"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
           />
 
           <p className="text-lg font-semibold mt-5">Images</p>

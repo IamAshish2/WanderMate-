@@ -10,6 +10,7 @@ const ManageTravelPackages = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [travelPackages, setTravelPackages] = useState([]);
   const [id, setId] = useState(null);
+  const [price, setPrice] = useState(null);
   const [name, setName] = useState("");
   const [images, setImages] = useState([]);
   const [description, setDescription] = useState("");
@@ -39,6 +40,7 @@ const ManageTravelPackages = () => {
     const travelPackageData = {
       Name: name,
       ImageUrl: imageUrl,
+      Price: price,
       Description: description,
       FreeCancellation: freeCancellation,
       ReserveNow: reserveNow,
@@ -51,7 +53,6 @@ const ManageTravelPackages = () => {
           `http://localhost:5156/api/TravelPackages/${id}`,
           travelPackageData
         );
-        // console.log(response);
         setLoading(false);
         fetchTravelPackages();
         resetForm();
@@ -83,9 +84,9 @@ const ManageTravelPackages = () => {
   };
 
   const handleEdit = (travelPackage) => {
-    // console.log(travelPackage);
     setId(travelPackage.id);
     setName(travelPackage.name);
+    setPrice(travelPackage.price);
     setDescription(travelPackage.description);
     setImages(travelPackage.imageUrl);
     setFreeCancellation(travelPackage.freeCancellation);
@@ -107,6 +108,7 @@ const ManageTravelPackages = () => {
   const resetForm = () => {
     setName("");
     setDescription("");
+    setPrice("");
     setImages([]);
     setFreeCancellation("");
     setFreeCancellation(false);
@@ -160,6 +162,14 @@ const ManageTravelPackages = () => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
+          />
+
+          <p className="text-lg font-semibold mt-5">Price</p>
+          <input
+            className="w-full px-5 py-3 rounded-md font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-blue-600 focus:bg-blue-100"
+            type="text"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
           />
 
           <p className="text-lg font-semibold mt-5">Images</p>
@@ -270,7 +280,7 @@ const ManageTravelPackages = () => {
             ) : (
               <tr>
                 <td colSpan="3" className="px-6 py-4 text-center">
-                  No hotels available
+                  No travel packages available
                 </td>
               </tr>
             )}
