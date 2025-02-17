@@ -1,31 +1,32 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useAuth } from "../lib/context/AuthContext";
 
 function Protected({ children, allowedRoles }) {
-  // defined two usestates to check the token before the react component reenders
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
-  const expiresIn = localStorage.getItem("expiresIn");
+  let expiresIn = localStorage.getItem("expiresIn");
+  expiresIn = Date.now(expiresIn);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const verifyToken = async () => {
       // If there's no token or required data, redirect to SignIn page
       if (!token || !role || !expiresIn) {
-        return <Navigate to="/signin" replace />;
+        return;
       }
 
+      //// check this function later
       const currentTime = Date.now() / 1000;
 
       // Check if the token has expired
       if (currentTime > expiresIn) {
         // Clear stored token details and redirect to SignIn
         localStorage.removeItem("token");
-        localStorage.removeItem("role");
         localStorage.removeItem("expiresIn");
-        // console.log("literally nothing");
+        localStorage.removeItem("role");
         return;
-        // return <Navigate to="/signin" replace />;
       }
 
       // Verify token with the backend
@@ -43,29 +44,29 @@ function Protected({ children, allowedRoles }) {
         if (response.status !== 200) {
           // If the token is not valid, clear stored data and redirect to SignIn
           localStorage.removeItem("token");
-          localStorage.removeItem("role");
           localStorage.removeItem("expiresIn");
-          return <Navigate to="/signin" replace />;
+          localStorage.removeItem("role");
+          navigate("/signin");
         }
       } catch (error) {
         console.error("Token verification failed:", error);
         // Handle token verification failure (optional)
         localStorage.removeItem("token");
-        localStorage.removeItem("role");
         localStorage.removeItem("expiresIn");
-        return <Navigate to="/signin" replace />;
+        localStorage.removeItem("role");
+        navigate("/signin");
       }
     };
     // Call token verification
     verifyToken();
   }, [token, role, expiresIn]);
 
-  // Check if the user's role is included in the allowedRoles array
   if (!allowedRoles.includes(role)) {
     // Redirect based on role
-    return (
-      <Navigate to={role === "Admin" ? "/dashboard" : "/user/home"} replace />
-    );
+    if (role === "Admin") {
+      navigate("/dashboard");
+    }
+    return;
   }
 
   // If authorized and the token is valid, render the protected content

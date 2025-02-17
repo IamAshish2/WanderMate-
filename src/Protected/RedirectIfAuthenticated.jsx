@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthContext, useAuth } from "../lib/context/AuthContext";
 
 const RedirectIfAuthenticated = ({ children }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  console.log(token);
+  const { isAuthenticated } = useAuth(AuthContext);
+
   useEffect(() => {
     const checkAuthentication = async () => {
       // if token is present
