@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "../index.css";
 import bgimg from "../assets/undraw_signin.svg";
 import axios from "axios";
@@ -6,10 +6,11 @@ import { signInSchema } from "../validation/formValidation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../lib/context/AuthContext";
 
 const Signin = () => {
-  const navigate = useNavigate();
-  const [user, setUser] = useState();
+  const { login } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
@@ -18,24 +19,8 @@ const Signin = () => {
     resolver: yupResolver(signInSchema),
   });
 
-  const onSubmit = async (data) => {
-    try {
-      const responseData = await axios.post(
-        "http://localhost:5156/api/Authentication/Login",
-        data
-      );
-      if (responseData.status === 200) {
-        const { token, role, expiresIn } = responseData.data.response; // Ensure correct access
-        localStorage.setItem("token", token);
-        localStorage.setItem("expiresIn", expiresIn);
-        localStorage.setItem("role", role);
-        setUser({ role }); // Update state with role
-
-        navigate(role === "Admin" ? "/dashboard" : "/user/home");
-      }
-    } catch (error) {
-      console.error("Login failed:", error.response?.data || error.message);
-    }
+  const onSubmit = (data) => {
+    login(data);
   };
 
   return (

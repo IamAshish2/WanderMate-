@@ -2,6 +2,7 @@ import axios from "axios";
 
 const jsonUrl = "http://localhost:5156"
 
+
 export const getHotels = async() =>  {
     try{
         const token = localStorage.getItem("token");
@@ -53,7 +54,7 @@ export const getTravelPackages = async() => {
             },
           });
         }
-        const data =await response.data
+        const data = await response.data
 
         return data
     }catch(err){
@@ -61,7 +62,6 @@ export const getTravelPackages = async() => {
     }
 }
 
-//http://localhost:5156/api/TravelPackages
 export const getTravelPackage = async(id) => {
     try{
         // const response = await axios.get(`${jsonUrl}/api/TravelPackages/${id}`)
@@ -201,8 +201,9 @@ export const getUserEmailByToken = async(token) => {
 
 export const getUserByEmail = async(email) => {
   const response = await axios.get(`http://localhost:5156/api/User/UserEmail/${email}`);
+  console.log(response);
   const data = await response.data;
-  console.log(data);
+  // console.log(data);
   return data;
 }
 
