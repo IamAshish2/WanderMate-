@@ -1,7 +1,6 @@
 import StarsRating from "./StarsRating";
 import { useEffect, useState } from "react";
 import { getTravelPackages } from "../API";
-// import { travelPackagesPage } from "../helper-links/Data";
 const TravelPackages = () => {
   const [travelPackages, setTravelPackages] = useState([]);
 
@@ -26,7 +25,7 @@ const TravelPackages = () => {
           <div
             className=" w-[85%] h-[37vh] rounded-md m-2"
             style={{
-              background: `url(${travelPackage.img[0]})`,
+              background: `url(${travelPackage.imageUrl[0]})`,
               backgroundSize: "cover",
               backgroundPosition: "top",
             }}

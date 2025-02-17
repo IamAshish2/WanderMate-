@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { IoSearch } from "react-icons/io5";
+import { getTopDestinations, getHotels, getTravelPackages } from "../API";
+import Cards from "../elements/Card";
 import "../index.css";
 import headerImg from "../assets/headerImg9.jpg";
-import { IoSearch } from "react-icons/io5";
 import topDestinationImg from "../assets/img7.jpg";
 import hotelIMg from "../assets/img10.jpg";
 import travelPackgesImg from "../assets/img9.jpg";
-import Cards from "../elements/Card";
-import axios from "axios";
-
-// import { topDestinations, travelPackages, hotels } from "../helper-links/Data";
-import {
-  getTopDestinations,
-  getHotels,
-  getTravelPackages,
-  getThingsToDo,
-} from "../API";
+import thingsToDoImg from "../assets/img10.jpg";
+import { thingsToDo } from "../helper-links/Data";
 
 const Home = () => {
   const hotelUrl = "/user/hotels";
@@ -26,6 +20,7 @@ const Home = () => {
   const [hotels, setHotels] = useState([]);
   const [travelPackages, setTravelPackages] = useState([]);
 
+
   useEffect(() => {
     const getTopDestination = async () => {
       const data = await getTopDestinations();
@@ -34,17 +29,8 @@ const Home = () => {
     getTopDestination();
 
     const getHotel = async () => {
-      const token = localStorage.getItem("token");
-      let response;
-      if (token) {
-        response = await axios.get("http://localhost:5156/api/Hotel", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        // console.log(response.data);
-        setHotels(response.data);
-      }
+      const data = await getHotels();
+      setHotels(data);
     };
     getHotel();
 
@@ -64,8 +50,6 @@ const Home = () => {
           backgroundColor: "whitesmoke",
         }}
       >
-        {/* Header */}
-
         {/* search bar conatainer */}
         <div
           className=" relative flex flex-col justify-center items-center w-[95%] h-[40vh] ml-auto mt-4 mr-auto md:w-[85%] md:h-[50vh] lg:w-[80%] lg:h-[70vh]"
@@ -85,21 +69,6 @@ const Home = () => {
               type="text"
             />
             <div className="h-5 w-5 sm:h-7 sm:w-7 md:h-10 md:w-10 lg:h-11 lg:w-11 flex items-center justify-center bg-blue-600 rounded-full cursor-pointer">
-              <IoSearch
-                className="lg:flex xs:hidden hidden"
-                size={22}
-                color="white"
-              />
-              <IoSearch
-                className="md:flex lg:hidden hidden"
-                size={18}
-                color="white"
-              />
-              <IoSearch
-                className="sm:flex md:hidden hidden"
-                size={16}
-                color="white"
-              />
               <IoSearch className="flex sm:hidden" size={12} color="white" />
             </div>
           </div>
@@ -107,6 +76,7 @@ const Home = () => {
 
         {/* cards container */}
         <div className="flex flex-col mt-14 w-[85%] ml-auto m-auto">
+          {/* top destinations card */}
           <div>
             <div className="flex align-center gap-2">
               <img
@@ -119,6 +89,7 @@ const Home = () => {
             <Cards data={topDestinations} url={topDestinationUrl} />
           </div>
 
+          {/* Travel Packages card */}
           <div className="mt-10">
             <div className="flex align-center gap-2">
               <img
@@ -130,7 +101,7 @@ const Home = () => {
             </div>
             <Cards data={travelPackages} url={travelPackagesUrl} />
           </div>
-
+          {/* Hotels card */}
           <div className="mt-10">
             <div className="flex align-center gap-2">
               <img
@@ -142,6 +113,21 @@ const Home = () => {
             </div>
             <Cards data={hotels} url={hotelUrl} />
           </div>
+
+          {/* Things to do card */}
+          {/* <div>
+            <div className="mt-10">
+              <div className="flex items-center gap-2">
+                <img
+                  className="rounded-full h-10 w-10"
+                  src={thingsToDoImg}
+                  alt=""
+                />
+                <p className="font-bold text-pretty"> Things To Do</p>
+              </div>
+              <Cards data={thingsToDo} url={thingsToDoUrl} />
+            </div>
+          </div> */}
         </div>
       </div>
     </>

@@ -4,17 +4,6 @@ const Carousel = ({ data }) => {
   const [itemId, setItemId] = useState(1);
   const [seeMore,setSeeMore] = useState(false);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setItemId((prevItemId) => {
-  //       const nextItemId = prevItemId + 1;
-  //       return nextItemId > data.length ? 1 : nextItemId;
-  //     })
-  //   },3000)
-
-  //   return () =>  clearInterval(interval)
-  // },[data.length])
-
   useEffect(() => {
     const interval  = setInterval(() => {
         if(itemId < 5){
@@ -42,7 +31,6 @@ const Carousel = ({ data }) => {
               src={item.img}
               alt="image"
             />
-            {/* <h1 className="">Explore {item.title}</h1> */}
           </div>
         ))}
 

@@ -21,7 +21,6 @@ const UserProfile = () => {
     const token = localStorage.getItem("token");
     const email = await getUserEmailByToken(token);
     const user = await getUserByEmail(email);
-    console.log(user);
     setUser(user);
   };
 
@@ -46,15 +45,12 @@ const UserProfile = () => {
   };
 
   const handleSubmit = () => {
-    // e.preventDefalut();
-
     const userData = {
       UserName: name,
       Occupation: occupation,
       Bio: bio,
       Location: location,
     };
-    console.log(userData);
 
     const updateData = async () => {
       try {
@@ -69,8 +65,6 @@ const UserProfile = () => {
       }
     };
     updateData();
-
-    // console.log("hhhdh");
   };
 
   if (!user) return <div>Loading...</div>;
@@ -107,11 +101,17 @@ const UserProfile = () => {
           </div>
         </div>
 
-        <div className="text-[12px]  text-xl ml-8 md:ml-28 lg:ml-60">
-          <p>{user.userName}</p>
-          <p>Bio: {user.bio}</p>
-          <p>Occupation: {user.occupation}</p>
-          <p>Location: {user.location}</p>
+        <div className="text-[12px] text-xl ml-8 md:ml-28 lg:ml-60 capitalize font-mono font-light">
+          <p className="font-semibold ml-1">{user.userName}</p>
+          <p>
+            <span> Bio:</span> {user.bio}
+          </p>
+          <p>
+            <span>Occupation:</span> {user.occupation}
+          </p>
+          <p>
+            <span>Location:</span> {user.location}
+          </p>
         </div>
 
         {/* edit profile section */}

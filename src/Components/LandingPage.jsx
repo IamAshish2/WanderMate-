@@ -4,7 +4,10 @@ import { motion } from "framer-motion";
 import { RxHamburgerMenu } from "react-icons/rx";
 import BGImg from "../assets/bg8.jpg";
 import HeaderImage from "../assets/headerImg5.jpg";
-import {landingFooterLinks,landingHeaderLinks} from "../helper-links/Data.js"
+import {
+  landingFooterLinks,
+  landingHeaderLinks,
+} from "../helper-links/Data.js";
 
 const LandingPage = () => {
   const [open, setOpen] = useState(false);
@@ -29,13 +32,13 @@ const LandingPage = () => {
               setOpen(!open);
             }}
           />
-          <Link
-            to="/signup"
+          <a
+            href="LandingPage"
             className="sm:flex hidden pl-4 md:pl-8 text-orange-600 font-bold text-2xl lg:text-4xl hover:cursor-pointer"
             style={{ textShadow: "4px 4px 4px rgba(0, 0, 0, 0.4)" }}
           >
             Explore.
-          </Link>
+          </a>
 
           <div className="hidden sm:flex h-full w-full items-center justify-center gap-9 lg:gap-14">
             {landingHeaderLinks.slice(0, 4).map((item) => (
@@ -49,7 +52,7 @@ const LandingPage = () => {
               </div>
             ))}
           </div>
-          
+
           <img
             style={{
               clipPath: "polygon(0 0, 100% 0, 100% 90%, 75% 100%, 0 50%)",
@@ -69,7 +72,7 @@ const LandingPage = () => {
             h-screen w-[40%] sm:hidden fixed top-0 right-0 bg-white z-50 rounded-lg`}
         >
           {landingHeaderLinks.map((item) => (
-            <>
+            <div key={item.id}>
               <Link
                 className="flex justify-around  font-bold text-gray-600 text-lg pl-4 py-3
                 cursor-pointer hover:bg-gray-100 hover:rounded-lg"
@@ -78,7 +81,7 @@ const LandingPage = () => {
               >
                 {item.title}
               </Link>
-            </>
+            </div>
           ))}
         </motion.div>
 
@@ -107,7 +110,7 @@ const LandingPage = () => {
           <div className="h-full flex items-end justify-end gap-4">
             <div className="h-16 flex items-center flex-wrap gap-4 md:gap-16 backdrop-blur-sm px-4">
               {landingFooterLinks.map((link) => (
-                <>
+                <div key={link.id}>
                   <Link
                     to={link.link}
                     key={link.id}
@@ -115,7 +118,7 @@ const LandingPage = () => {
                   >
                     {link.title}
                   </Link>
-                </>
+                </div>
               ))}
             </div>
           </div>

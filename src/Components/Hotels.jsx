@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
-
-// import { hotelPage } from "../helper-links/Data";
 import StarsRating from "./StarsRating";
 import { getHotels } from "../API";
-import Tempelate from "../Tempelate/Tempelate";
 
 const Hotels = () => {
   const [hotels, setHotels] = useState([]);
@@ -29,7 +26,6 @@ const Hotels = () => {
           key={hotel.id}
           className="flex h-[75%] justify-center p-1 items-center m-4  border border-gray-200 shadow-xl rounded-xl"
         >
-          {/* <a className="w-[85%] h-[37vh]" href={`/user/hotels/${hotel.id}`}> */}
           <div
             className=" w-[85%] h-[37vh] rounded-md m-2"
             style={{
@@ -38,7 +34,6 @@ const Hotels = () => {
               backgroundPosition: "center",
             }}
           ></div>
-          {/* </a> */}
 
           <div className="w-full flex flex-col gap-2 justify-center items-center mt-4">
             <h1 className="text-xl font-bold">{hotel.name}</h1>

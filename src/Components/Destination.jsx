@@ -42,7 +42,6 @@ const Destination = () => {
     const getTopDestination = async () => {
       const data = await getTopDestinations();
       setTopDestinations(data);
-      // console.log(data)
     };
     getTopDestination();
 
@@ -57,12 +56,6 @@ const Destination = () => {
       setTravelPackages(data);
     };
     getTravelPackage();
-
-    // const getThingsToDos = async () => {
-    //   const data = await getThingsToDo();
-    //   setThingsToDo(data);
-    // };
-    // getThingsToDos();
   }, []);
 
   return (
@@ -107,18 +100,6 @@ const Destination = () => {
               <p className="font-bold mt-1 text-md ">Hotels</p>
             </div>
             <Cards data={hotels} url={hotelUrl} />
-          </div>
-
-          <div>
-            {/* <div className="flex align-center gap-2 mt-10">
-              <img
-                src={topDestinationImg}
-                alt="top destination img"
-                className=" rounded-full h-10 w-10 bg-cover"
-              />
-              <p className="font-bold mt-1 text-md ">Things To Do</p>
-            </div>
-            <Cards data={thingsToDo} url={thingsToDoUrl} /> */}
           </div>
         </div>
       </div>
