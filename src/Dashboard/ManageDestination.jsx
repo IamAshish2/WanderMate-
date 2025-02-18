@@ -3,7 +3,6 @@ import { getTopDestinations } from "../API";
 import axios from "axios";
 import { Hotel, PencilIcon, Trash2, X, ImagePlus, Save } from "lucide-react";
 
-
 const ManageDestination = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -149,166 +148,272 @@ const ManageDestination = () => {
   };
 
   return (
-    <div className="m-0 shadow-xl ">
-      <div className=" ml-auto mr-auto">
-        <h1 className="font-bold text-3xl mt-3 ml-3">
-          {isEditing ? "Edit Destinations" : "Add New Destinations"}
-        </h1>
-
-        <form className="ml-3" onSubmit={(e) => handleSubmit(e)}>
-          <p className="text-lg font-semibold mt-5">Name</p>
-          <input
-            className="w-full px-5 py-3 rounded-md font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-blue-600 focus:bg-blue-100"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-
-          <p className="text-lg font-semibold mt-5">Price</p>
-          <input
-            className="w-full px-5 py-3 rounded-md font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-blue-600 focus:bg-blue-100"
-            type="text"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
-
-          <p className="text-lg font-semibold mt-5">Images</p>
-          <input
-            className="w-full px-5 py-3 rounded-md font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-blue-600 focus:bg-blue-100"
-            type="file"
-            multiple
-            onChange={(e) => handleImageChange(e)}
-          />
-          <div className="flex gap-3">
-            {images.map((image, index) => (
-              <div key={index} className="relative">
-                <img
-                  className="h-52 w-52 mt-5 object-cover"
-                  src={`${typeof image === "string" ? image : URL.createObjectURL(image)}`}
-                  alt="image"
+    <div className="min-h-screen bg-gray-50 ml-auto mr-auto">
+      {" "}
+      {/* Main container with consistent styling */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {" "}
+        {/* Content container */}
+        <div className="flex items-center justify-between mb-8">
+          {" "}
+          {/* Title and Cancel Button */}
+          <div className="flex items-center space-x-3">
+            <h1 className="text-2xl font-bold text-gray-900">
+              {isEditing ? "Edit Destination" : "Add New Destination"}
+            </h1>
+          </div>
+          {isEditing && (
+            <button
+              onClick={resetForm}
+              className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900"
+            >
+              Cancel Edit
+            </button>
+          )}
+        </div>
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
+          {" "}
+          {/* Form Container */}
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {" "}
+            {/* Form with space between elements */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {" "}
+              {/* Grid for Name and Price */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Destination Name
+                </label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter destination name"
                 />
-
-                <button
-                  className="w-6 h-6 rounded-full absolute top-4 -right-1  bg-red-500 text-white"
-                  onClick={() => handleImageDelete(index)}
-                >
-                  x
-                </button>
               </div>
-            ))}
-          </div>
-
-          <div className="flex gap-3">
-            <p className="text-lg font-semibold mt-5">Free Cancelation</p>
-            <input
-              checked={freeCancellation}
-              onChange={(e) => setFreeCancellation(e.target.checked)}
-              className="w-[12px] h-[12px] mt-7 ml-auto mr-auto rounded-full"
-              type="checkbox"
-            />
-          </div>
-
-          <div className="flex gap-11">
-            <p className="text-lg font-semibold mt-5">Reserve Now</p>
-            <input
-              checked={reserveNow}
-              onChange={(e) => setReserveNow(e.target.checked)}
-              className="w-[12px] h-[12px] mt-7 ml-auto mr-auto rounded-full"
-              type="checkbox"
-            />
-          </div>
-
-          <p className="mt-5 font-semibold text-lg">Description</p>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="h-[100px] w-full px-5 py-3 rounded-md mt-5 font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-blue-600 focus:bg-blue-100"
-          ></textarea>
-
-          <button
-            className={`bg-blue-500 text-white px-5 py-3 rounded-md mt-5 hover:outline-none hover:bg-indigo-700  cursor-pointer ${loading ? "cursor-not-allowed bg-blue-300" : "cursor-pointer"}`}
-          >
-            {isEditing ? "Update Destination" : "Add Destination"}
-          </button>
-        </form>
-      </div>
-
-      <div className="relative w-[80%] ml-auto mr-auto mt-6">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead>
-            <tr className="">
-              <th scope="col" className="px-6 py-3">
-                Name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Description
-              </th>
-              <th scope="col" className="px-16 py-3  w-10">
-                Action
-              </th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {Array.isArray(destination) && destination.length > 0 ? (
-              destination.map((destination) => (
-                <tr
-                  key={destination.id}
-                  className="bg-white border-b dark:border-gray-700"
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Price
+                </label>
+                <input
+                  type="text"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  className="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter price"
+                />
+              </div>
+            </div>
+            <div>
+              {" "}
+              {/* Image Upload */}
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Destination Images
+              </label>
+              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-blue-500 transition-colors">
+                <div className="space-y-1 text-center">
+                  <ImagePlus className="mx-auto h-12 w-12 text-gray-400" />
+                  <div className="flex text-sm text-gray-600">
+                    <label className="relative cursor-pointer rounded-md font-medium text-blue-600 hover:text-blue-500">
+                      <span>Upload images</span>
+                      <input
+                        type="file"
+                        multiple
+                        className="sr-only"
+                        onChange={handleImageChange}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+                {images.map((image, index) => (
+                  <div key={index} className="relative group">
+                    <img
+                      src={
+                        typeof image === "string"
+                          ? image
+                          : URL.createObjectURL(image)
+                      }
+                      alt={`Destination image ${index + 1}`}
+                      className="h-40 w-full object-cover rounded-lg"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleImageDelete(index)}
+                      className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {" "}
+              {/* Checkboxes */}
+              <div className="flex items-center space-x-3">
+                <input
+                  id="freeCancellation"
+                  type="checkbox"
+                  checked={freeCancellation}
+                  onChange={(e) => setFreeCancellation(e.target.checked)}
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <label
+                  htmlFor="freeCancellation"
+                  className="text-sm font-medium text-gray-700"
                 >
-                  <td className="px-6 py-4">{destination.name}</td>
-                  <td className="px-6 py-4">{destination.description}</td>
-                  <td className="flex mt-4 gap-3">
-                    <button
-                      onClick={() => handleEdit(destination)}
-                      className="border border-gray-500 p-1 w-20 rounded bg-green-500 text-white font-bold border-none"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => {
-                        setOpen(true);
-                        setDestinationIdForDelete(destination.id);
-                      }}
-                      className="border border-gray-500 p-1 w-20 rounded bg-red-500 text-white font-bold border-none"
-                    >
-                      Delete
-                    </button>
-                  </td>
+                  Free Cancellation
+                </label>
+              </div>
+              <div className="flex items-center space-x-3">
+                <input
+                  id="reserveNow"
+                  type="checkbox"
+                  checked={reserveNow}
+                  onChange={(e) => setReserveNow(e.target.checked)}
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <label
+                  htmlFor="reserveNow"
+                  className="text-sm font-medium text-gray-700"
+                >
+                  Reserve Now
+                </label>
+              </div>
+            </div>
+            <div>
+              {" "}
+              {/* Description */}
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Description
+              </label>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={4}
+                className="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Enter destination description"
+              />
+            </div>
+            <div className="flex justify-end">
+              {" "}
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={loading}
+                className={`inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
+                  loading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              >
+                {isEditing ? "Update Destination" : "Add Destination"}
+              </button>
+            </div>
+          </form>
+        </div>
+        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+          {" "}
+          {/* Table Container */}
+          <div className="px-6 py-4 border-b border-gray-200">
+            <h2 className="text-lg font-medium text-gray-900">
+              Destinations List
+            </h2>
+          </div>
+          <div className="overflow-x-auto">
+            {" "}
+            {/* Added for horizontal scrolling if needed */}
+            <table className="min-w-full divide-y divide-gray-200">
+              {" "}
+              {/* Table */}
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Name
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Description
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="3" className="px-6 py-4 text-center">
-                  No destinations available
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-
-        <div
-          className={` absolute top-[50%] left-[50%] right:[50%] flex  h-16 w border border-green-500 bg-red-500 ${open ? "visible" : "hidden"} `}
-        >
-          <button
-            className="bg-red-500 p-4"
-            onClick={() => {
-              handleDelete(destinationIdForDelete);
-              setOpen(false);
-            }}
-          >
-            Yes
-          </button>
-          <button
-            className="bg-green-600 p-5"
-            onClick={() => {
-              setOpen(false);
-            }}
-          >
-            No
-          </button>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {Array.isArray(destination) && destination.length > 0 ? (
+                  destination.map((dest) => (
+                    <tr key={dest.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {dest.name}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        ${dest.price}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-3">
+                        <button
+                          onClick={() => handleEdit(dest)}
+                          className="inline-flex items-center text-blue-600 hover:text-blue-900"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => {
+                            setOpen(true);
+                            setTravelPackageIdForDelete(dest.id);
+                          }}
+                          className="inline-flex items-center text-red-600 hover:text-red-900"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan={3}
+                      className="px-6 py-4 text-center text-sm text-gray-500"
+                    >
+                      No destination Available available
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
+      {open && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-sm w-full mx-4">
+            <h3 className="text-lg font-medium text-gray-900 mb-4">
+              Confirm Deletion
+            </h3>
+            <p className="text-sm text-gray-500 mb-6">
+              Are you sure you want to delete this package? This action cannot
+              be undone.
+            </p>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={() => setOpen(false)}
+                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  handleDelete(destinationIdForDelete);
+                  setOpen(false);
+                }}
+                className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
