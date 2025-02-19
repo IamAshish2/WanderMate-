@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getTravelPackages } from "../API";
 import axios from "axios";
-import { ImagePlus } from "lucide-react";
+import { ImagePlus, X } from "lucide-react";
 
 const ManageTravelPackages = () => {
   const [open, setOpen] = useState(false);

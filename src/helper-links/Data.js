@@ -521,13 +521,13 @@ export const adminSidebar = [
   },
   {
     id: 5,
-    to: "/dashboard/manage-bookings",
-    name: "Bookings",
+    to: "/dashboard/things-to-do",
+    name: "Things To Do",
   },
-  {
-    id: 6,
-    to: "dashboard/manage-reviews",
-    name: "Reviews",
-  },
+  // {
+  //   id: 6,
+  //   to: "dashboard/manage-reviews",
+  //   name: "Reviews",
+  // },
 
 ];

@@ -18,6 +18,7 @@ import ManageDestination from "./Dashboard/ManageDestination.jsx";
 import Protected from "./Protected/Protected.jsx";
 import RedirectIfAuthenticated from "./Protected/RedirectIfAuthenticated.jsx";
 import ManageBooking from "./Dashboard/ManageBooking.jsx";
+import ManageThingsToDo from "./Dashboard/ManageThingsToDo.jsx";
 function App() {
   return (
     <>
@@ -88,7 +89,7 @@ function App() {
             path="manage-travelPackages"
             element={<ManageTravelPackages />}
           />
-          <Route path="manage-bookings" element={<ManageBooking />} />
+          <Route path="things-to-do" element={<ManageThingsToDo />} />
           <Route path="destination" element={<ManageDestination />} />
         </Route>
         {/* </Route> */}

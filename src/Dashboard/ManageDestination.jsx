@@ -121,9 +121,9 @@ const ManageDestination = () => {
 
   useEffect(() => {
     fetchDestination();
-  }, [destination]);
+  }, []);
 
-  const uploadImagesToCloudinary = async (newImages) => {
+  const uploadImagesToCloudinary = async (images) => {
     const cloudinaryURL =
       "https://api.cloudinary.com/v1_1/dtw0fbcyi/image/upload";
     const uploadPreset = "nxvaoz6l";
