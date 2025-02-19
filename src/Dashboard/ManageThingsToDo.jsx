@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getTopDestinations } from "../API";
+import { getThingsToDo } from "../API";
 import axios from "axios";
 import { MapPin, PencilIcon, Trash2, X, ImagePlus, Save } from "lucide-react";
 
@@ -22,7 +22,7 @@ const ManageThingsToDo = () => {
 
   const handleImageChange = (e) => {
     const selectedImage = Array.from(e.target.files);
-    setImages((prevImage) => [...prevImage, ...selectedImage]);
+    setImages((prev) => [...prev, ...selectedImage]);
   };
 
   const handleSubmit = async (e) => {
@@ -41,7 +41,7 @@ const ManageThingsToDo = () => {
 
     const activityData = {
       Name: name,
-      ImageUrl: imageUrl,
+      ImageUrls: imageUrl,
       Price: price,
       Description: description,
       Duration: duration,
@@ -91,7 +91,7 @@ const ManageThingsToDo = () => {
     setName(activity.name);
     setDescription(activity.description);
     setPrice(activity.price);
-    setImages(activity.imageUrl);
+    setImages(activity.imageUrls || []);
     setDuration(activity.duration);
     setLocation(activity.location);
     setCategory(activity.category);
@@ -125,8 +125,9 @@ const ManageThingsToDo = () => {
   };
 
   const fetchActivities = async () => {
-    const response = await getTopDestinations();
+    const response = await getThingsToDo();
     setActivities(response);
+    console.log(response);
   };
 
   useEffect(() => {
@@ -297,26 +298,28 @@ const ManageThingsToDo = () => {
                 </div>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
-                {images.map((image, index) => (
-                  <div key={index} className="relative group">
-                    <img
-                      className="h-40 w-full object-cover rounded-lg"
-                      src={
-                        typeof image === "string"
-                          ? image
-                          : URL.createObjectURL(image)
-                      }
-                      alt={`Activity ${index + 1}`}
-                    />
-                    <button
-                      type="button"
-                      className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                      onClick={() => handleImageDelete(index)}
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  </div>
-                ))}
+                {images &&
+                  images.length > 0 &&
+                  images.map((image, index) => (
+                    <div key={index} className="relative group">
+                      <img
+                        className="h-40 w-full object-cover rounded-lg"
+                        src={
+                          typeof image === "string"
+                            ? image
+                            : URL.createObjectURL(image)
+                        }
+                        alt={`Activity ${index + 1}`}
+                      />
+                      <button
+                        type="button"
+                        className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        onClick={() => handleImageDelete(index)}
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
               </div>
             </div>
 
